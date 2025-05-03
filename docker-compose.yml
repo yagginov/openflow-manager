@@ -1,0 +1,19 @@
+version: "3.8"
+services:
+  sdn-app:
+    build: ./docker
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/app
+    environment:
+      - FLASK_ENV=development      version: "3.8"
+      services:
+        sdn-app:
+          build: ./docker
+          ports:
+            - "8080:8080"
+          volumes:
+            - .:/app
+          environment:
+            - FLASK_ENV=development

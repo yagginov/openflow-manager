@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>SDN Traffic Monitor</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Flow ID</th>
+      <th>Bytes</th>
+      <th>Packets</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for flow in stats.flows %}
+    <tr>
+      <td>{{ flow.id }}</td>
+      <td>{{ flow.bytes }}</td>
+      <td>{{ flow.packets }}</td>
+      <td><button>Block</button></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
