@@ -1,0 +1,7 @@
+{
+    "BASE_URL": "http://<controller-ip>:<port>",
+    "HEADERS": {
+        "Accept": "application/json",
+        "Authorization": "Basic <base64-encoded-credentials>"
+    }
+}
