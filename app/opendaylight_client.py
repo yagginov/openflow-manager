@@ -10,8 +10,10 @@ HEADERS = config["HEADERS"]
 
 def get_topology_details():
     """Retrieve OpenFlow topology details."""
-    url = f"{BASE_URL}/rests/data/network-topology:network-topology/topology=flow%3A1?content=nonconfig"
+    url = f"{BASE_URL}/restconf/operational/opendaylight-inventory:nodes/"
     response = requests.get(url, headers=HEADERS)
+    if response.status_code != 200:
+        raise Exception(f"HTTP Error {response.status_code}: {response.text}")
     return response.json()
 
 def get_node_inventory(node_id):
