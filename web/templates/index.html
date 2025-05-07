@@ -13,19 +13,21 @@
     </tr>
   </thead>
   <tbody>
-    {% for node in topology["network-topology"]["topology"][0]["node"] %}
+    {% for node in topology["nodes"]["node"]["node-connector"] %}
     <tr>
-      <td>{{ node["node-id"] }}</td>
+      <td>{{ node["id"] }}</td>
       <td>{{ node["node-type"] if "node-type" in node else "Unknown" }}</td>
       <td>
         <ul>
-          {% for port in node["termination-point"] %}
-          <li>{{ port["tp-id"] }}</li>
+          {% for port in node["address-tracker:addresses"] %}
+          <li>{{ port["ip"] }}</li>
           {% endfor %}
         </ul>
       </td>
     </tr>
     {% endfor %}
+
+    {% topology %}
   </tbody>
 </table>
 {% endblock %}
