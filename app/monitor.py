@@ -1,22 +1,19 @@
-import requests
+from opendaylight_client import get_flow_table_statistics, get_port_description
 
 class OpenFlowMonitor:
-    def __init__(self, controller_url, username, password):
-        self.controller_url = controller_url
-        self.auth = (username, password)
+    def __init__(self):
+        pass  # Конфігурація вже завантажується в opendaylight_client
 
-    def get_flow_stats(self):
-        url = f"{self.controller_url}/restconf/operational/opendaylight-inventory:nodes/"
-        response = requests.get(url, auth=self.auth)
-        if response.status_code == 200:
-            return response.json()
-        else:
-            raise Exception(f"Failed to fetch flow stats: {response.status_code}")
+    def get_flow_stats(self, node_id, table_id):
+        """Отримати статистику потоків для конкретного вузла та таблиці."""
+        try:
+            return get_flow_table_statistics(node_id, table_id)
+        except Exception as e:
+            raise Exception(f"Failed to fetch flow stats: {e}")
 
-    def get_port_stats(self, node_id):
-        url = f"{self.controller_url}/restconf/operational/opendaylight-inventory:nodes/node/{node_id}/node-connector/"
-        response = requests.get(url, auth=self.auth)
-        if response.status_code == 200:
-            return response.json()
-        else:
-            raise Exception(f"Failed to fetch port stats: {response.status_code}")
+    def get_port_stats(self, node_id, port_id):
+        """Отримати статистику портів для конкретного вузла та порту."""
+        try:
+            return get_port_description(node_id, port_id)
+        except Exception as e:
+            raise Exception(f"Failed to fetch port stats: {e}")
