@@ -1,5 +1,5 @@
 {
-    "BASE_URL": "http://192.168.0.2:8181",
+    "BASE_URL": "http://192.168.10.2:8181",
     "HEADERS": {
         "Accept": "application/json",
         "Authorization": "Basic YWRtaW46YWRtaW4="

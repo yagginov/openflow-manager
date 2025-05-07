@@ -4,7 +4,7 @@ from app.controller import OpenFlowController
 
 app = Flask(__name__)
 
-monitor = OpenFlowMonitor("http://localhost:8181", "admin", "admin")
+monitor = OpenFlowMonitor()
 controller = OpenFlowController("http://localhost:8181", "admin", "admin")
 
 @app.route("/")

@@ -2,7 +2,7 @@ import requests
 import json
 
 # Load configuration from config.json
-with open("config.json", "r") as config_file:
+with open("app/config.json", "r") as config_file:
     config = json.load(config_file)
 
 BASE_URL = config["BASE_URL"]

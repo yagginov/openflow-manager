@@ -1,10 +1,10 @@
-from opendaylight_client import get_flow_table_statistics, get_port_description
+from app.opendaylight_client import get_flow_table_statistics, get_port_description
 
 class OpenFlowMonitor:
     def __init__(self):
         pass  # Конфігурація вже завантажується в opendaylight_client
 
-    def get_flow_stats(self, node_id, table_id):
+    def get_flow_stats(self, node_id = 1, table_id = 1):
         """Отримати статистику потоків для конкретного вузла та таблиці."""
         try:
             return get_flow_table_statistics(node_id, table_id)
