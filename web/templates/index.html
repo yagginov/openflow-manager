@@ -17,13 +17,7 @@
     <tr>
       <td>{{ node["id"] }}</td>
       <td>{{ node["flow-node-inventory:hardware"] if "flow-node-inventory:hardware" in node else "Unknown" }}</td>
-      <td>
-        <ul>
-          {% for port in node["flow-node-inventory:ip-address"] %}
-          <li>{{ port["ip"] }}</li>
-          {% endfor %}
-        </ul>
-      </td>
+      <td>{{% node["flow-node-inventory:ip-address"] %}}</td>
     </tr>
     {% endfor %}
   </tbody>

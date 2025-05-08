@@ -9,30 +9,53 @@ body {
     font-family: Arial, sans-serif;
     background-color: $pastel-yellow;
     color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+main {
+    max-width: 800px;
+    width: 100%;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 h1, h2 {
     color: $pastel-blue;
+    text-align: center;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    table-layout: auto; // Allows columns to adjust based on content
 }
 
 th, td {
     padding: 10px;
     border: 1px solid $pastel-green;
-    text-align: left;
+    text-align: center;
+    white-space: nowrap; // Prevents text from wrapping
 }
 
 th {
     background-color: $pastel-pink;
+    font-weight: bold;
 }
 
 tr:nth-child(even) {
     background-color: $pastel-yellow;
+}
+
+tr:hover {
+    background-color: $pastel-green;
+    transition: background-color 0.3s ease;
 }
 
 ul {
