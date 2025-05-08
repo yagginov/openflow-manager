@@ -38,7 +38,7 @@
             </tr>
             </thead>
             <tbody>
-                {% for port in node["node-connector"]|sort(attribute="id") %}
+                {% for port in node["node-connector"] %}
                 <tr>
                     <td>{{ port["flow-node-inventory:name"] }}</td>
                     <td>{{ port["id"] }}</td>

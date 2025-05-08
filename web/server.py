@@ -7,10 +7,22 @@ app = Flask(__name__)
 monitor = OpenFlowMonitor()
 controller = OpenFlowController("http://localhost:8181", "admin", "admin")
 
+def sort_ports_by_name(ports):
+    import re
+    # Сортуємо порти за числовою частиною імені
+    def extract_number(port_name):
+        match = re.search(r'\d+', port_name)
+        return int(match.group()) if match else float('inf')  # Якщо немає числа, ставимо "безкінечність"
+    
+    return sorted(ports, key=lambda port: extract_number(port.get("flow-node-inventory:name", "")))
+
 @app.route("/")
 def index():
     try:
         topology_details = monitor.get_topology()
+        # Сортуємо порти для кожного вузла
+        for node in topology_details["nodes"]["node"]:
+            node["node-connector"] = sort_ports_by_name(node["node-connector"])
         return render_template("index.html", topology=topology_details)
     except Exception as e:
         return str(e), 500
