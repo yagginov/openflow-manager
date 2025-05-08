@@ -1,0 +1,44 @@
+// This file contains styles specific to the index.html file. It styles the table, headings, and other elements to ensure a cohesive look with pastel colors.
+
+$pastel-blue: #a3c1e0;
+$pastel-green: #b2e0b2;
+$pastel-yellow: #f2e6a6;
+$pastel-pink: #f2b2b2;
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: $pastel-yellow;
+    color: #333;
+}
+
+h1, h2 {
+    color: $pastel-blue;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid $pastel-green;
+    text-align: left;
+}
+
+th {
+    background-color: $pastel-pink;
+}
+
+tr:nth-child(even) {
+    background-color: $pastel-yellow;
+}
+
+ul {
+    padding-left: 20px;
+}
+
+li {
+    color: $pastel-green;
+}

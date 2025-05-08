@@ -11,6 +11,9 @@ build/
 dist/
 *.egg-info/
 
+# Ignore temp folder
+temp/
+
 # Logs and temporary files
 *.log
 *.tmp

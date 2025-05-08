@@ -8,18 +8,18 @@
   <thead>
     <tr>
       <th>Node ID</th>
-      <th>Node Type</th>
-      <th>Connected Ports</th>
+      <th>Hardware</th>
+      <th>IP-address</th>
     </tr>
   </thead>
   <tbody>
-    {% for node in topology["nodes"]["node"]["node-connector"] %}
+    {% for node in topology["nodes"]["node"] %}
     <tr>
       <td>{{ node["id"] }}</td>
-      <td>{{ node["node-type"] if "node-type" in node else "Unknown" }}</td>
+      <td>{{ node["flow-node-inventory:hardware"] if "flow-node-inventory:hardware" in node else "Unknown" }}</td>
       <td>
         <ul>
-          {% for port in node["address-tracker:addresses"] %}
+          {% for port in node["flow-node-inventory:ip-address"] %}
           <li>{{ port["ip"] }}</li>
           {% endfor %}
         </ul>
