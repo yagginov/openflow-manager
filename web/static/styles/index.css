@@ -34,16 +34,30 @@ footer {
   padding: 10px;
 }
 
+.content {
+  text-align: center;
+  padding: 20px;
+}
+
 h1, h2 {
   color: #a3c1e0;
   text-align: center;
+  margin-bottom: 20px;
 }
 
 table {
   width: 100%;
+  max-width: 800px;
+  margin: 0 auto 20px auto;
   border-collapse: collapse;
-  margin-top: 20px;
-  table-layout: auto;
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+thead {
+  background-color: #f2b2b2;
 }
 
 th, td {
@@ -54,17 +68,22 @@ th, td {
 }
 
 th {
-  background-color: #f2b2b2;
   font-weight: bold;
+  color: #333;
 }
 
-tr:nth-child(even) {
+tbody tr:nth-child(even) {
   background-color: #f2e6a6;
 }
 
-tr:hover {
+tbody tr:nth-child(odd) {
   background-color: #b2e0b2;
-  transition: background-color 0.3s ease;
+}
+
+tbody tr:hover {
+  background-color: #a3c1e0;
+  color: #fff;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 ul {
@@ -73,4 +92,17 @@ ul {
 
 li {
   color: #b2e0b2;
+}
+
+pre {
+  text-align: left;
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+  max-width: 800px;
+  margin: 20px auto;
+  color: #333;
+  font-family: "Courier New", Courier, monospace;
 }/*# sourceMappingURL=index.css.map */

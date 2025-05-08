@@ -1,30 +1,32 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>SDN Network Topology</h1>
+<div class="content">
+    <h1>SDN Network Topology</h1>
+    <h2>Topology Details</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Node ID</th>
+            <th>Hardware</th>
+            <th>IP-address</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for node in topology["nodes"]["node"] %}
+            <tr>
+                <td>{{ node["id"] }}</td>
+                <td>{{ node["flow-node-inventory:hardware"] }}</td>
+                <td>{{ node["flow-node-inventory:ip-address"] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
-<h2>Topology Details</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Node ID</th>
-      <th>Hardware</th>
-      <th>IP-address</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for node in topology["nodes"]["node"] %}
-    <tr>
-      <td>{{ node["id"] }}</td>
-      <td>{{ node["flow-node-inventory:hardware"] if "flow-node-inventory:hardware" in node else "Unknown" }}</td>
-      <td>{{ node["flow-node-inventory:ip-address"] }}</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+    <h2>Raw Topology Data</h2>
+    <pre>
+        {{ topology | tojson(indent=2) }}
+    </pre>
 
-<h2>Raw Topology Data</h2>
-<pre>
-{{ topology | tojson(indent=2) }}
-</pre>
+</div>
 {% endblock %}
