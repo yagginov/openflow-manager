@@ -22,20 +22,41 @@ def prepare_graph_data(topology_details):
     edges = []
 
     for node in topology_details["nodes"]["node"]:
-        # Додаємо вузол
+        # Додаємо вузол для свіча
         nodes.append({
             "id": node["id"],
             "label": node["id"],
-            "title": f"Hardware: {node.get('flow-node-inventory:hardware', 'N/A')}<br>IP: {node.get('flow-node-inventory:ip-address', 'N/A')}"
+            "title": f"Hardware: {node.get('flow-node-inventory:hardware', 'N/A')}<br>IP: {node.get('flow-node-inventory:ip-address', 'N/A')}",
+            "group": "switch"  # Група для стилізації
         })
 
         # Додаємо зв'язки (edges) між портами
         for connector in node.get("node-connector", []):
-            if "flow-node-inventory:port-number" in connector:
+            port_id = connector.get("id", "N/A")
+            port_name = connector.get("flow-node-inventory:name", "N/A")
+
+            # Додаємо зв'язок між свічем і портом
+            edges.append({
+                "from": node["id"],
+                "to": port_id,
+                "label": port_name
+            })
+
+            # Додаємо вузли для комп'ютерів, підключених до порту
+            for address in connector.get("address-tracker:addresses", []):
+                computer_id = f"{port_id}-{address['mac']}"  # Унікальний ID для комп'ютера
+                nodes.append({
+                    "id": computer_id,
+                    "label": address["ip"],
+                    "title": f"MAC: {address['mac']}<br>IP: {address['ip']}",
+                    "group": "computer"  # Група для стилізації
+                })
+
+                # Додаємо зв'язок між портом і комп'ютером
                 edges.append({
-                    "from": node["id"],
-                    "to": connector["flow-node-inventory:port-number"],
-                    "label": connector.get("flow-node-inventory:name", "N/A")
+                    "from": port_id,
+                    "to": computer_id,
+                    "label": "Connected"
                 })
 
     return {"nodes": nodes, "edges": edges}
