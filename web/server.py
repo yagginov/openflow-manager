@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 from app.monitor import OpenFlowMonitor
 from app.controller import OpenFlowController
+import json
 
 app = Flask(__name__)
 
@@ -16,6 +17,29 @@ def sort_ports_by_name(ports):
     
     return sorted(ports, key=lambda port: extract_number(port.get("flow-node-inventory:name", "")))
 
+def prepare_graph_data(topology_details):
+    nodes = []
+    edges = []
+
+    for node in topology_details["nodes"]["node"]:
+        # Додаємо вузол
+        nodes.append({
+            "id": node["id"],
+            "label": node["id"],
+            "title": f"Hardware: {node.get('flow-node-inventory:hardware', 'N/A')}<br>IP: {node.get('flow-node-inventory:ip-address', 'N/A')}"
+        })
+
+        # Додаємо зв'язки (edges) між портами
+        for connector in node.get("node-connector", []):
+            if "flow-node-inventory:port-number" in connector:
+                edges.append({
+                    "from": node["id"],
+                    "to": connector["flow-node-inventory:port-number"],
+                    "label": connector.get("flow-node-inventory:name", "N/A")
+                })
+
+    return {"nodes": nodes, "edges": edges}
+
 @app.route("/")
 def index():
     try:
@@ -23,7 +47,10 @@ def index():
         # Сортуємо порти для кожного вузла
         for node in topology_details["nodes"]["node"]:
             node["node-connector"] = sort_ports_by_name(node["node-connector"])
-        return render_template("index.html", topology=topology_details)
+        
+        # Підготовка даних для графа
+        graph_data = prepare_graph_data(topology_details)
+        return render_template("index.html", topology=topology_details, graph_data=json.dumps(graph_data))
     except Exception as e:
         return str(e), 500
 
