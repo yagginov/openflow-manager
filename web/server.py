@@ -30,29 +30,11 @@ def prepare_graph_data(topology_details):
             "group": "switch"  # Група для стилізації
         })
 
-        # Додаємо зв'язки (edges) між портами
+        # Обробляємо порти
         for connector in node.get("node-connector", []):
-            port_id = connector.get("id", "N/A")
-            port_name = connector.get("flow-node-inventory:name", "N/A")
-
-            # Додаємо вузол для порту
-            nodes.append({
-                "id": port_id,
-                "label": port_name,
-                "title": f"Port: {port_name}",
-                "group": "port"  # Група для стилізації (можна додати окрему стилізацію для портів)
-            })
-
-            # Додаємо зв'язок між свічем і портом
-            edges.append({
-                "from": node["id"],
-                "to": port_id,
-                "label": port_name
-            })
-
             # Додаємо вузли для комп'ютерів, підключених до порту
             for address in connector.get("address-tracker:addresses", []):
-                computer_id = f"{port_id}-{address['mac']}"  # Унікальний ID для комп'ютера
+                computer_id = f"{node['id']}-{address['mac']}"  # Унікальний ID для комп'ютера
                 nodes.append({
                     "id": computer_id,
                     "label": address["ip"],
@@ -60,11 +42,11 @@ def prepare_graph_data(topology_details):
                     "group": "computer"  # Група для стилізації
                 })
 
-                # Додаємо зв'язок між портом і комп'ютером
+                # Додаємо зв'язок між свічем і комп'ютером
                 edges.append({
-                    "from": port_id,
+                    "from": node["id"],
                     "to": computer_id,
-                    "label": "Connected"
+                    "label": f"Port: {connector.get('flow-node-inventory:name', 'N/A')}"
                 })
 
     return {"nodes": nodes, "edges": edges}
