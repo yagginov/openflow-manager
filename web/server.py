@@ -1,55 +1,14 @@
 from flask import Flask, render_template, request, jsonify
 from app.monitor import OpenFlowMonitor
 from app.controller import OpenFlowController
+from app.port_utils import sort_ports_by_name
+from app.graph_utils import prepare_graph_data
 import json
 
 app = Flask(__name__)
 
 monitor = OpenFlowMonitor()
 controller = OpenFlowController("http://localhost:8181", "admin", "admin")
-
-def sort_ports_by_name(ports):
-    import re
-    # Сортуємо порти за числовою частиною імені
-    def extract_number(port_name):
-        match = re.search(r'\d+', port_name)
-        return int(match.group()) if match else float('inf')  # Якщо немає числа, ставимо "безкінечність"
-    
-    return sorted(ports, key=lambda port: extract_number(port.get("flow-node-inventory:name", "")))
-
-def prepare_graph_data(topology_details):
-    nodes = []
-    edges = []
-
-    for node in topology_details["nodes"]["node"]:
-        # Додаємо вузол для свіча
-        nodes.append({
-            "id": node["id"],
-            "label": node["id"],
-            "title": f"Hardware: {node.get('flow-node-inventory:hardware', 'N/A')}<br>IP: {node.get('flow-node-inventory:ip-address', 'N/A')}",
-            "group": "switch"  # Група для стилізації
-        })
-
-        # Обробляємо порти
-        for connector in node.get("node-connector", []):
-            # Додаємо вузли для комп'ютерів, підключених до порту
-            for address in connector.get("address-tracker:addresses", []):
-                computer_id = f"{node['id']}-{address['mac']}"  # Унікальний ID для комп'ютера
-                nodes.append({
-                    "id": computer_id,
-                    "label": address["ip"],
-                    "title": f"MAC: {address['mac']}<br>IP: {address['ip']}",
-                    "group": "computer"  # Група для стилізації
-                })
-
-                # Додаємо зв'язок між свічем і комп'ютером
-                edges.append({
-                    "from": node["id"],
-                    "to": computer_id,
-                    "label": f"{connector.get('flow-node-inventory:name', 'N/A')}"
-                })
-
-    return {"nodes": nodes, "edges": edges}
 
 @app.route("/")
 def index():
