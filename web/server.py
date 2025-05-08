@@ -46,7 +46,7 @@ def prepare_graph_data(topology_details):
                 edges.append({
                     "from": node["id"],
                     "to": computer_id,
-                    "label": f"Port: {connector.get('flow-node-inventory:name', 'N/A')}"
+                    "label": f"{connector.get('flow-node-inventory:name', 'N/A')}"
                 })
 
     return {"nodes": nodes, "edges": edges}
