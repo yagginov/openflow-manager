@@ -32,12 +32,13 @@
             <tr>
                 <th>Port Name</th>
                 <th>Port ID</th>
-                <th>MAC Address</th>
-                <th>IP Address</th>
+                <th>Hardware Address</th>
+                <th>User IP Address</th>
+                <th>User MAC Address</th>
             </tr>
             </thead>
             <tbody>
-                {% for port in node["node-connector"] %}
+                {% for port in node["node-connector"]|sort(attribute="flow-node-inventory:name") %}
                 <tr>
                     <td>{{ port["flow-node-inventory:name"] }}</td>
                     <td>{{ port["id"] }}</td>
@@ -45,6 +46,13 @@
                     <td>
                         {% if port["address-tracker:addresses"] %}
                             {{ port["address-tracker:addresses"][0]["ip"] }}
+                        {% else %}
+                            N/A
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if port["address-tracker:addresses"] %}
+                            {{ port["address-tracker:addresses"][0]["mac"] }}
                         {% else %}
                             N/A
                         {% endif %}
