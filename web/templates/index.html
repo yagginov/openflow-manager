@@ -23,10 +23,42 @@
         </tbody>
     </table>
 
+    <h2>Port Details for Each Node</h2>
+    {% for node in topology["nodes"]["node"] %}
+    <div class="node-ports">
+        <h3>Ports for Node: {{ node["id"] }}</h3>
+        <table>
+            <thead>
+            <tr>
+                <th>Port Name</th>
+                <th>Port ID</th>
+                <th>MAC Address</th>
+                <th>IP Address</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for port in node["node-connector"] %}
+                <tr>
+                    <td>{{ port["flow-node-inventory:name"] }}</td>
+                    <td>{{ port["id"] }}</td>
+                    <td>{{ port["flow-node-inventory:hardware-address"] }}</td>
+                    <td>
+                        {% if port["address-tracker:addresses"] %}
+                            {{ port["address-tracker:addresses"][0]["ip"] }}
+                        {% else %}
+                            N/A
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endfor %}
+
     <h2>Raw Topology Data</h2>
     <pre>
         {{ topology | tojson(indent=2) }}
     </pre>
-
 </div>
 {% endblock %}
