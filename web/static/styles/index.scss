@@ -10,19 +10,35 @@ body {
     background-color: $pastel-yellow;
     color: #333;
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    min-height: 100vh;
+    flex-direction: column; // Встановлюємо вертикальне розташування елементів
+    min-height: 100vh; // Мінімальна висота сторінки
+    margin: 0;
+}
+
+header {
+    background-color: $pastel-pink;
+    text-align: center;
     padding: 20px;
 }
 
 main {
+    flex: 1; // Займає весь доступний простір між header і footer
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
     max-width: 800px;
     width: 100%;
     background-color: #fff;
     padding: 20px;
+    margin: 20px auto; // Центруємо main горизонтально
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+    background-color: $pastel-pink;
+    text-align: center;
+    padding: 10px;
 }
 
 h1, h2 {
@@ -34,14 +50,14 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-    table-layout: auto; // Allows columns to adjust based on content
+    table-layout: auto; // Дозволяє колонкам підлаштовуватися під контент
 }
 
 th, td {
     padding: 10px;
     border: 1px solid $pastel-green;
     text-align: center;
-    white-space: nowrap; // Prevents text from wrapping
+    white-space: nowrap; // Запобігає переносу тексту
 }
 
 th {
