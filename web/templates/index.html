@@ -85,26 +85,30 @@
     // Налаштування графа
     const options = {
         nodes: {
-            shape: 'dot',
-            size: 20,
+            shape: 'image', // Використовуємо зображення
+            size: 30,
             font: {
-                size: 15
+                size: 15,
+                valign: 'bottom' // Назва під картинкою
             }
         },
         edges: {
             arrows: 'to',
             font: {
                 align: 'middle'
-            }
+            },
+            smooth: false // Прямі зв'язки
         },
         groups: {
             switch: {
-                color: { background: 'blue', border: 'darkblue' },
-                shape: 'box'
+                shape: 'image',
+                image: 'web/static/images/switch.png', // Шлях до зображення для свічів
+                size: 40
             },
             computer: {
-                color: { background: 'green', border: 'darkgreen' },
-                shape: 'ellipse'
+                shape: 'image',
+                image: 'web/static/images/computer.png', // Шлях до зображення для комп'ютерів
+                size: 30
             }
         },
         physics: {
