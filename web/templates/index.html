@@ -17,7 +17,7 @@
     <tr>
       <td>{{ node["id"] }}</td>
       <td>{{ node["flow-node-inventory:hardware"] if "flow-node-inventory:hardware" in node else "Unknown" }}</td>
-      <td>{{% node["flow-node-inventory:ip-address"] %}}</td>
+      <td>{{ node["flow-node-inventory:ip-address"] }}</td>
     </tr>
     {% endfor %}
   </tbody>
