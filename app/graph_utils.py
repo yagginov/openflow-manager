@@ -28,8 +28,8 @@ def prepare_graph_data(topology_details):
                     "group": "computer"  # Група для стилізації
                 })
 
-                if node.get("flow-node-inventory:name", 'N/A') != "N/A":
-                    unique_ports[node['id']] = node.get("flow-node-inventory:name", 'N/A')
+                if connector.get("flow-node-inventory:name", 'N/A') != "N/A":
+                    unique_ports[connector['id']] = connector.get("flow-node-inventory:name", 'N/A')
 
                 # Додаємо зв'язок між свічем і комп'ютером
                 edges.append({
