@@ -16,7 +16,8 @@ def prepare_graph_data(topology_details):
             "group": "switch"  # Група для стилізації
         })
 
-        unique_ports[node['id']] = node["flow-node-inventory:name"]
+        if node.get("flow-node-inventory:name", 'N/A') != "N/A":
+            unique_ports[node['id']] = node.get("flow-node-inventory:name", 'N/A')
 
         # Обробляємо порти
         for connector in node.get("node-connector", []):
