@@ -4,6 +4,7 @@ def prepare_graph_data(topology_details):
     """
     nodes = []
     edges = []
+    unique_links = set()  # Множина для унікальних зв'язків
 
     for node in topology_details["nodes"]["node"]:
         # Додаємо вузол для свіча
@@ -35,10 +36,18 @@ def prepare_graph_data(topology_details):
 
     # Додаємо зв'язки між вузлами
     for link in topology_details.get("links", []):
-        edges.append({
-            "from": link["source"]["source-node"],
-            "to": link["destination"]["dest-node"],
-            "label": f"Port: {link['source'].get('source-tp', 'N/A')} -> {link['destination'].get('dest-tp', 'N/A')}"
-        })
+        # Формуємо унікальний ключ для зв'язку
+        link_key = tuple(sorted([
+            (link["source"]["source-node"], link["source"].get("source-tp", "N/A")),
+            (link["destination"]["dest-node"], link["destination"].get("dest-tp", "N/A"))
+        ]))
+
+        if link_key not in unique_links:
+            unique_links.add(link_key)  # Додаємо ключ до множини
+            edges.append({
+                "from": link["source"]["source-node"],
+                "to": link["destination"]["dest-node"],
+                "label": f"Port: {link['source'].get('source-tp', 'N/A')} -> {link['destination'].get('dest-tp', 'N/A')}"
+            })
 
     return {"nodes": nodes, "edges": edges}
