@@ -33,4 +33,12 @@ def prepare_graph_data(topology_details):
                     "label": f"{connector.get('flow-node-inventory:name', 'N/A')}"
                 })
 
+    # Додаємо зв'язки між вузлами
+    for link in topology_details.get("links", []):
+        edges.append({
+            "from": link["source"]["source-node"],
+            "to": link["destination"]["dest-node"],
+            "label": f"Port: {link['source'].get('source-tp', 'N/A')} -> {link['destination'].get('dest-tp', 'N/A')}"
+        })
+
     return {"nodes": nodes, "edges": edges}

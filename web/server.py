@@ -13,7 +13,7 @@ controller = OpenFlowController("http://localhost:8181", "admin", "admin")
 @app.route("/")
 def index():
     try:
-        topology_details = monitor.get_topology()
+        topology_details = monitor.get_full_topology()  # Використовуємо новий метод
         # Сортуємо порти для кожного вузла
         for node in topology_details["nodes"]["node"]:
             node["node-connector"] = sort_ports_by_name(node["node-connector"])
@@ -28,7 +28,6 @@ def index():
 def add_flow():
     data = request.json
     try:
-        # Assuming you have a controller to handle adding flows
         controller.add_flow(data["node_id"], data["flow_id"], data["match"], data["actions"])
         return jsonify({"status": "success"})
     except Exception as e:

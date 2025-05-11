@@ -2,6 +2,7 @@ from app.opendaylight_client import (
     get_flow_table_statistics,
     get_port_description,
     get_topology_details,
+    get_topology_links,  # Import the new function
 )
 
 class OpenFlowMonitor:
@@ -28,3 +29,13 @@ class OpenFlowMonitor:
             return get_topology_details()
         except Exception as e:
             raise Exception(f"Failed to fetch topology details: {e}")
+
+    def get_full_topology(self):
+        """Отримати повну інформацію про топологію мережі, включаючи зв'язки."""
+        try:
+            topology_details = get_topology_details()
+            topology_links = get_topology_links()
+            topology_details["links"] = topology_links.get("network-topology", {}).get("topology", [])[0].get("link", [])
+            return topology_details
+        except Exception as e:
+            raise Exception(f"Failed to fetch full topology: {e}")

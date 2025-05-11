@@ -16,6 +16,14 @@ def get_topology_details():
         raise Exception(f"HTTP Error {response.status_code}: {response.text}")
     return response.json()
 
+def get_topology_links():
+    """Retrieve links between nodes in the topology."""
+    url = f"{BASE_URL}/restconf/operational/network-topology:network-topology/"
+    response = requests.get(url, headers=HEADERS)
+    if response.status_code != 200:
+        raise Exception(f"HTTP Error {response.status_code}: {response.text}")
+    return response.json()
+
 def get_node_inventory(node_id):
     """Retrieve inventory data of a connected node."""
     url = f"{BASE_URL}/rests/data/opendaylight-inventory:nodes/node={node_id}?content=nonconfig"
