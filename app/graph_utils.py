@@ -37,6 +37,8 @@ def prepare_graph_data(topology_details):
                     "to": computer_id,
                     "label": f"{connector.get('flow-node-inventory:name', 'N/A')}"
                 })
+    
+    print(unique_ports, end='\n\n')
 
     # Додаємо зв'язки між вузлами
     for link in topology_details.get("links", []):
