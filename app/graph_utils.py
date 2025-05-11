@@ -5,6 +5,7 @@ def prepare_graph_data(topology_details):
     nodes = []
     edges = []
     unique_links = set()  # Множина для унікальних зв'язків
+    unique_ports = {}
 
     for node in topology_details["nodes"]["node"]:
         # Додаємо вузол для свіча
@@ -14,6 +15,8 @@ def prepare_graph_data(topology_details):
             "title": f"Hardware: {node.get('flow-node-inventory:hardware', 'N/A')}<br>IP: {node.get('flow-node-inventory:ip-address', 'N/A')}",
             "group": "switch"  # Група для стилізації
         })
+
+        unique_ports[node['id']] = node["flow-node-inventory:name"]
 
         # Обробляємо порти
         for connector in node.get("node-connector", []):
@@ -48,7 +51,7 @@ def prepare_graph_data(topology_details):
             edges.append({
                 "from": link["source"]["source-node"],
                 "to": link["destination"]["dest-node"],
-                "label": f"Port: {link['source'].get('source-tp', 'N/A')} -> {link['destination'].get('dest-tp', 'N/A')}"
+                "label": f"Port: {unique_ports.get(link['source']['source_node'], 'N/A')} -> {unique_ports.get(link['destination']['dest-node'], 'N/A')}"
             })
 
     return {"nodes": nodes, "edges": edges}
