@@ -1,5 +1,4 @@
-// This file contains styles specific to the index.html file. It styles the table, headings, and other elements to ensure a cohesive look with dark theme colors.
-
+// Color variables
 $dark-bg: #121212;
 $dark-card: #1e1e1e;
 $dark-border: #333;
@@ -7,53 +6,27 @@ $dark-text: #e0e0e0;
 $dark-accent: #bb86fc;
 $dark-hover: #3700b3;
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: $dark-bg;
-    color: $dark-text;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    margin: 0;
-}
-
-header {
-    background-color: $dark-card;
-    text-align: center;
-    padding: 20px;
-    color: $dark-text;
-}
-
-main {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    max-width: 1400px;
-    width: 100%;
-    background-color: $dark-card;
-    padding: 20px;
-    margin: 20px auto;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-}
-
-footer {
-    background-color: $dark-card;
-    text-align: center;
-    padding: 10px;
-    color: $dark-text;
-}
-
-content {
+.content {
     text-align: center;
     padding: 20px;
 }
 
-h1, h2 {
+h1 {
     color: $dark-accent;
     text-align: center;
     margin-bottom: 20px;
+}
+
+h2 {
+    color: $dark-accent;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+h3 {
+    color: $dark-accent;
+    text-align: center;
+    margin-bottom: 10px;
 }
 
 table {
@@ -65,44 +38,37 @@ table {
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-}
 
-thead {
-    background-color: $dark-hover;
-}
+    thead {
+        background-color: $dark-hover;
+    }
 
-th, td {
-    padding: 10px;
-    border: 1px solid $dark-border;
-    text-align: center;
-    white-space: nowrap;
-    color: $dark-text;
-}
+    th, td {
+        padding: 10px;
+        border: 1px solid $dark-border;
+        text-align: center;
+        white-space: nowrap;
+        color: $dark-text;
+    }
 
-th {
-    font-weight: bold;
-}
+    th {
+        font-weight: bold;
+    }
 
-tbody tr:nth-child(even) {
-    background-color: $dark-bg;
-}
+    tbody tr:nth-child(even) {
+        background-color: $dark-bg;
+    }
 
-tbody tr:nth-child(odd) {
-    background-color: $dark-card;
-}
+    tbody tr:nth-child(odd) {
+        background-color: $dark-card;
+    }
 
-tbody tr:hover {
-    background-color: $dark-hover;
-    color: $dark-text;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
+    tbody tr:hover {
+        background-color: $dark-hover;
+        color: $dark-text;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
 
-ul {
-    padding-left: 20px;
-}
-
-li {
-    color: $dark-accent;
 }
 
 pre {

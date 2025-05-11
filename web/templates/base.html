@@ -11,8 +11,16 @@
         <h1>{% block header %}SDN Traffic Monitor{% endblock %}</h1>
     </header>
 
-    <!-- Контейнер для графа -->
-    <div id="network"></div>
+    <main>
+        <div id="network"></div>
+        {% block content %}{% endblock %}
+    </main>
+    
+    <footer>
+        <p>&copy; 2025 SDN Monitor</p>
+    </footer>
+</body>
+</html>
 
 <!-- Підключення бібліотеки vis.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
@@ -59,12 +67,3 @@
     const container = document.getElementById('network');
     const network = new vis.Network(container, graphData, options);
 </script>
-
-    <main>
-        {% block content %}{% endblock %}
-    </main>
-    <footer>
-        <p>&copy; 2025 SDN Monitor</p>
-    </footer>
-</body>
-</html>
