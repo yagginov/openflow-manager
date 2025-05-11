@@ -21,7 +21,7 @@ def prepare_graph_data(topology_details):
         for connector in node.get("node-connector", []):
             # Додаємо вузли для комп'ютерів, підключених до порту
             for address in connector.get("address-tracker:addresses", []):
-                computer_id = address['mac'].trim()
+                computer_id = address['mac'].strip()
                 if computer_id not in unique_pc:
                     nodes.append({
                         "id": computer_id,
