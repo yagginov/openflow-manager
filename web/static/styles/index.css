@@ -19,7 +19,7 @@ main {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  max-width: 800px;
+  max-width: 1400px;
   width: 100%;
   background-color: #fff;
   padding: 20px;
@@ -105,4 +105,4 @@ pre {
   margin: 20px auto;
   color: #333;
   font-family: "Courier New", Courier, monospace;
-}/*# sourceMappingURL=index.css.map */
+}

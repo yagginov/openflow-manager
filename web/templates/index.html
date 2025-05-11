@@ -68,6 +68,13 @@
     </div>
     {% endfor %}
 
+
+    <div class="navigation-buttons">
+        <button onclick="window.location.href='/statistics';">Go to Statistics</button>
+        <button onclick="window.location.href='/network-management';">Go to Network Management</button>
+    </div>
+
+
     <h2>Raw Topology Data</h2>
     <pre>
         {{ topology | tojson(indent=2) }}

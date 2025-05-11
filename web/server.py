@@ -33,5 +33,13 @@ def add_flow():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@app.route("/statistics")
+def statistics():
+    return render_template("statistics.html")
+
+@app.route("/network-management")
+def network_management():
+    return render_template("network_management.html")
+
 if __name__ == "__main__":
     app.run()
