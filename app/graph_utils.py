@@ -6,6 +6,7 @@ def prepare_graph_data(topology_details):
     edges = []
     unique_links = set()  # Множина для унікальних зв'язків
     unique_ports = {}
+    unique_pc = set()
 
     for node in topology_details["nodes"]["node"]:
         # Додаємо вузол для свіча
@@ -20,13 +21,15 @@ def prepare_graph_data(topology_details):
         for connector in node.get("node-connector", []):
             # Додаємо вузли для комп'ютерів, підключених до порту
             for address in connector.get("address-tracker:addresses", []):
-                computer_id = f"{node['id']}-{address['mac']}"  # Унікальний ID для комп'ютера
-                nodes.append({
-                    "id": computer_id,
-                    "label": address["ip"],
-                    "title": f"MAC: {address['mac']}<br>IP: {address['ip']}",
-                    "group": "computer"  # Група для стилізації
-                })
+                computer_id = address['mac']
+                if computer_id not in unique_pc:
+                    nodes.append({
+                        "id": computer_id,
+                        "label": address["ip"],
+                        "title": f"MAC: {address['mac']}<br>IP: {address['ip']}",
+                        "group": "computer"  # Група для стилізації
+                    })
+                    unique_pc.add(computer_id)
 
                 # Додаємо зв'язок між свічем і комп'ютером
                 edges.append({
