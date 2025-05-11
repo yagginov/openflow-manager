@@ -30,15 +30,15 @@ main {
 }
 main #network {
   flex: 1;
-  min-width: 75%;
-  height: 800px;
+  width: 75%;
+  min-height: 600px;
   border: 4px solid #333;
   background-color: white;
   box-sizing: border-box;
 }
 main .content {
   flex: 1;
-  min-width: 85%;
+  width: 85%;
   padding: 20px;
   background-color: #1e1e1e;
   border: 2px solid #333;
