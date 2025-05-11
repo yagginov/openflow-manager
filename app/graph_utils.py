@@ -33,9 +33,10 @@ def prepare_graph_data(topology_details):
                 edges.append({
                     "from": node["id"],
                     "to": computer_id,
+                    "title": f"Source port: {connector['id']}\n Destination port: {address['mac']}",
                     "label": f"{connector.get('flow-node-inventory:name', 'N/A')}"
                 })
-                
+
             unique_ports[connector['id']] = connector.get("flow-node-inventory:name", 'N/A')
     
     print(unique_ports, end='\n\n')
@@ -54,6 +55,7 @@ def prepare_graph_data(topology_details):
             edges.append({
                 "from": link["source"]["source-node"],
                 "to": link["destination"]["dest-node"],
+                "title": f"Source port: {link["source"]["source-tp"]}\n Destination port: {link["destination"]["dest-tp"]}",
                 "label": f"Port: {unique_ports.get(link['source']['source-tp'], 'N/A')} -> {unique_ports.get(link['destination']['dest-tp'], 'N/A')}"
             })
 
