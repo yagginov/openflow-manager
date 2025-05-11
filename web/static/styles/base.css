@@ -36,7 +36,7 @@ main {
   padding: 20px 0;
 }
 
-#network {
+.network-wrapper #network {
   width: 75%;
   max-width: 1000px;
   height: 600px;

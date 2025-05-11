@@ -41,15 +41,15 @@ main {
     display: flex;
     justify-content: center;
     padding: 20px 0;
-}
 
-#network {
-    width: 75%;
-    max-width: 1000px; // опціонально: обмежити максимум
-    height: 600px;
-    border: 4px solid $dark-border;
-    background-color: white;
-    overflow: hidden; // обмежує зайві скроли
+    #network {
+        width: 75%;
+        max-width: 1000px;
+        height: 600px;
+        border: 4px solid $dark-border;
+        background-color: white;
+        overflow: hidden;
+    }
 }
 
 footer {
