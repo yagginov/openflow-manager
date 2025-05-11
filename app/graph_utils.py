@@ -16,9 +16,6 @@ def prepare_graph_data(topology_details):
             "group": "switch"  # Група для стилізації
         })
 
-        if node.get("flow-node-inventory:name", 'N/A') != "N/A":
-            unique_ports[node['id']] = node.get("flow-node-inventory:name", 'N/A')
-
         # Обробляємо порти
         for connector in node.get("node-connector", []):
             # Додаємо вузли для комп'ютерів, підключених до порту
@@ -30,6 +27,9 @@ def prepare_graph_data(topology_details):
                     "title": f"MAC: {address['mac']}<br>IP: {address['ip']}",
                     "group": "computer"  # Група для стилізації
                 })
+
+                if node.get("flow-node-inventory:name", 'N/A') != "N/A":
+                    unique_ports[node['id']] = node.get("flow-node-inventory:name", 'N/A')
 
                 # Додаємо зв'язок між свічем і комп'ютером
                 edges.append({
