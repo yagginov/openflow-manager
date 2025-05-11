@@ -52,7 +52,7 @@ def prepare_graph_data(topology_details):
             edges.append({
                 "from": link["source"]["source-node"],
                 "to": link["destination"]["dest-node"],
-                "label": f"Port: {unique_ports.get(link['source']['source_node'], 'N/A')} -> {unique_ports.get(link['destination']['dest-node'], 'N/A')}"
+                "label": f"Port: {unique_ports.get(link['source']['source-node'], 'N/A')} -> {unique_ports.get(link['destination']['dest-node'], 'N/A')}"
             })
 
     return {"nodes": nodes, "edges": edges}
