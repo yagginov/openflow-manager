@@ -13,6 +13,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    height: 100%;
     margin: 0;
 }
 
@@ -36,6 +37,7 @@ main {
     padding: 20px;
     gap: 20px;
     box-sizing: border-box;
+    min-height: 0;
 
     #network {
         flex: 1;
