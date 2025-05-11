@@ -39,7 +39,8 @@ main {
 
     #network {
         flex: 1;
-        min-width: 100%; 
+        min-width: 75%; 
+        height: 800px;
         border: 4px solid $dark-border;
         background-color: white;
         box-sizing: border-box;
@@ -47,7 +48,7 @@ main {
 
     .content {
         flex: 1;
-        min-width: 100%;
+        min-width: 85%;
         padding: 20px;
         background-color: $dark-card;
         border: 2px solid $dark-border;
