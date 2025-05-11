@@ -36,6 +36,7 @@ def prepare_graph_data(topology_details):
 
     # Додаємо зв'язки між вузлами
     for link in topology_details.get("links", []):
+        print(link, end='\n\n')
         # Формуємо унікальний ключ для зв'язку
         link_key = tuple(sorted([
             (link["source"]["source-node"], link["source"].get("source-tp", "N/A")),
