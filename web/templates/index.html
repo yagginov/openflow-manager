@@ -4,9 +4,6 @@
 <div class="content">
     <h1>SDN Network Topology</h1>
 
-    <!-- Контейнер для графа -->
-    <div id="network"></div>
-
     <h2>Topology Details</h2>
     <table>
         <thead>
@@ -80,50 +77,4 @@
         {{ topology | tojson(indent=2) }}
     </pre>
 </div>
-
-<!-- Підключення бібліотеки vis.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis-network.min.css" rel="stylesheet">
-
-<script>
-    // Дані для графа
-    const graphData = JSON.parse('{{ graph_data | safe }}');
-
-    // Налаштування графа
-    const options = {
-        nodes: {
-            shape: 'image', // Використовуємо зображення
-            size: 15,
-            font: {
-                size: 15,
-                valign: 'bottom' // Назва під картинкою
-            }
-        },
-        edges: {
-            font: {
-                align: 'top'
-            },
-            smooth: true
-        },
-        groups: {
-            switch: {
-                shape: 'image',
-                image: 'static/images/switch.png', // Шлях до зображення для свічів
-                size: 15
-            },
-            computer: {
-                shape: 'image',
-                image: 'static/images/computer.png', // Шлях до зображення для комп'ютерів
-                size: 10
-            }
-        },
-        physics: {
-            enabled: true
-        }
-    };
-
-    // Ініціалізація графа
-    const container = document.getElementById('network');
-    const network = new vis.Network(container, graphData, options);
-</script>
 {% endblock %}
