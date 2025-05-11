@@ -1,53 +1,57 @@
-// This file contains styles specific to the index.html file. It styles the table, headings, and other elements to ensure a cohesive look with pastel colors.
+// This file contains styles specific to the index.html file. It styles the table, headings, and other elements to ensure a cohesive look with dark theme colors.
 
-$pastel-blue: #a3c1e0;
-$pastel-green: #b2e0b2;
-$pastel-yellow: #f2e6a6;
-$pastel-pink: #f2b2b2;
+$dark-bg: #121212;
+$dark-card: #1e1e1e;
+$dark-border: #333;
+$dark-text: #e0e0e0;
+$dark-accent: #bb86fc;
+$dark-hover: #3700b3;
 
 body {
     font-family: Arial, sans-serif;
-    background-color: $pastel-yellow;
-    color: #333;
+    background-color: $dark-bg;
+    color: $dark-text;
     display: flex;
-    flex-direction: column; // Встановлюємо вертикальне розташування елементів
-    min-height: 100vh; // Мінімальна висота сторінки
+    flex-direction: column;
+    min-height: 100vh;
     margin: 0;
 }
 
 header {
-    background-color: $pastel-pink;
+    background-color: $dark-card;
     text-align: center;
     padding: 20px;
+    color: $dark-text;
 }
 
 main {
-    flex: 1; // Займає весь доступний простір між header і footer
+    flex: 1;
     display: flex;
     justify-content: center;
     align-items: flex-start;
     max-width: 1400px;
     width: 100%;
-    background-color: #fff;
+    background-color: $dark-card;
     padding: 20px;
-    margin: 20px auto; // Центруємо main горизонтально
+    margin: 20px auto;
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
 }
 
 footer {
-    background-color: $pastel-pink;
+    background-color: $dark-card;
     text-align: center;
     padding: 10px;
+    color: $dark-text;
 }
 
-.content {
+content {
     text-align: center;
     padding: 20px;
 }
 
 h1, h2 {
-    color: $pastel-blue;
+    color: $dark-accent;
     text-align: center;
     margin-bottom: 20px;
 }
@@ -55,41 +59,41 @@ h1, h2 {
 table {
     width: 100%;
     max-width: 800px;
-    margin: 0 auto 20px auto; // Центруємо таблицю
+    margin: 0 auto 20px auto;
     border-collapse: collapse;
-    background-color: #fff;
+    background-color: $dark-card;
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
 }
 
 thead {
-    background-color: $pastel-pink;
+    background-color: $dark-hover;
 }
 
 th, td {
     padding: 10px;
-    border: 1px solid $pastel-green;
+    border: 1px solid $dark-border;
     text-align: center;
-    white-space: nowrap; // Запобігає переносу тексту
+    white-space: nowrap;
+    color: $dark-text;
 }
 
 th {
     font-weight: bold;
-    color: #333;
 }
 
 tbody tr:nth-child(even) {
-    background-color: $pastel-yellow;
+    background-color: $dark-bg;
 }
 
 tbody tr:nth-child(odd) {
-    background-color: $pastel-green;
+    background-color: $dark-card;
 }
 
 tbody tr:hover {
-    background-color: $pastel-blue;
-    color: #fff;
+    background-color: $dark-hover;
+    color: $dark-text;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -98,18 +102,18 @@ ul {
 }
 
 li {
-    color: $pastel-green;
+    color: $dark-accent;
 }
 
 pre {
     text-align: left;
-    background-color: #f9f9f9;
+    background-color: $dark-card;
     padding: 15px;
     border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     overflow-x: auto;
     max-width: 800px;
     margin: 20px auto;
-    color: #333;
+    color: $dark-text;
     font-family: "Courier New", Courier, monospace;
 }

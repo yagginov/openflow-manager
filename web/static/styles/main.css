@@ -32,8 +32,8 @@ footer {
 
 body {
   font-family: Arial, sans-serif;
-  background-color: #f2e6a6;
-  color: #333;
+  background-color: #121212;
+  color: #e0e0e0;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -41,9 +41,10 @@ body {
 }
 
 header {
-  background-color: #f2b2b2;
+  background-color: #1e1e1e;
   text-align: center;
   padding: 20px;
+  color: #e0e0e0;
 }
 
 main {
@@ -53,26 +54,27 @@ main {
   align-items: flex-start;
   max-width: 1400px;
   width: 100%;
-  background-color: #fff;
+  background-color: #1e1e1e;
   padding: 20px;
   margin: 20px auto;
   border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
 }
 
 footer {
-  background-color: #f2b2b2;
+  background-color: #1e1e1e;
   text-align: center;
   padding: 10px;
+  color: #e0e0e0;
 }
 
-.content {
+content {
   text-align: center;
   padding: 20px;
 }
 
 h1, h2 {
-  color: #a3c1e0;
+  color: #bb86fc;
   text-align: center;
   margin-bottom: 20px;
 }
@@ -82,39 +84,39 @@ table {
   max-width: 800px;
   margin: 0 auto 20px auto;
   border-collapse: collapse;
-  background-color: #fff;
+  background-color: #1e1e1e;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
 }
 
 thead {
-  background-color: #f2b2b2;
+  background-color: #3700b3;
 }
 
 th, td {
   padding: 10px;
-  border: 1px solid #b2e0b2;
+  border: 1px solid #333;
   text-align: center;
   white-space: nowrap;
+  color: #e0e0e0;
 }
 
 th {
   font-weight: bold;
-  color: #333;
 }
 
 tbody tr:nth-child(even) {
-  background-color: #f2e6a6;
+  background-color: #121212;
 }
 
 tbody tr:nth-child(odd) {
-  background-color: #b2e0b2;
+  background-color: #1e1e1e;
 }
 
 tbody tr:hover {
-  background-color: #a3c1e0;
-  color: #fff;
+  background-color: #3700b3;
+  color: #e0e0e0;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -123,18 +125,18 @@ ul {
 }
 
 li {
-  color: #b2e0b2;
+  color: #bb86fc;
 }
 
 pre {
   text-align: left;
-  background-color: #f9f9f9;
+  background-color: #1e1e1e;
   padding: 15px;
   border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   overflow-x: auto;
   max-width: 800px;
   margin: 20px auto;
-  color: #333;
+  color: #e0e0e0;
   font-family: "Courier New", Courier, monospace;
 }/*# sourceMappingURL=main.css.map */
