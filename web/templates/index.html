@@ -118,14 +118,5 @@
     // Ініціалізація графа
     const container = document.getElementById('network');
     const network = new vis.Network(container, graphData, options);
-
-    // Увімкнення підказок для вузлів і зв'язків
-    network.on("hoverNode", function (params) {
-        console.log("Hovered over node:", params.node);
-    });
-
-    network.on("hoverEdge", function (params) {
-        console.log("Hovered over edge:", params.edge);
-    });
 </script>
 {% endblock %}
