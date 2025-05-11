@@ -28,22 +28,18 @@ def prepare_graph_data(topology_details):
                     "group": "computer"  # Група для стилізації
                 })
 
-
                 # Додаємо зв'язок між свічем і комп'ютером
                 edges.append({
                     "from": node["id"],
                     "to": computer_id,
-                    "title": f"Source port: {connector['id']}\n Destination port: {address['mac']}",
+                    "title": f"Source port: {connector['id']}<br>Destination port: {address['mac']}",
                     "label": f"{connector.get('flow-node-inventory:name', 'N/A')}"
                 })
 
             unique_ports[connector['id']] = connector.get("flow-node-inventory:name", 'N/A')
-    
-    print(unique_ports, end='\n\n')
 
     # Додаємо зв'язки між вузлами
     for link in topology_details.get("links", []):
-        print(link, end='\n\n')
         # Формуємо унікальний ключ для зв'язку
         link_key = tuple(sorted([
             (link["source"]["source-node"], link["source"].get("source-tp", "N/A")),
@@ -55,7 +51,7 @@ def prepare_graph_data(topology_details):
             edges.append({
                 "from": link["source"]["source-node"],
                 "to": link["destination"]["dest-node"],
-                "title": f"Source port: {link["source"]["source-tp"]}\n Destination port: {link["destination"]["dest-tp"]}",
+                "title": f"Source port: {link['source']['source-tp']}<br>Destination port: {link['destination']['dest-tp']}",
                 "label": f"Port: {unique_ports.get(link['source']['source-tp'], 'N/A')} -> {unique_ports.get(link['destination']['dest-tp'], 'N/A')}"
             })
 
