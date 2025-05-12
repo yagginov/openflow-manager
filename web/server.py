@@ -56,7 +56,7 @@ def network_management():
         return str(e), 500
     
 @app.route("/statistics/flow-stat")
-def statistics():
+def statistics_flow_stat():
     try:
         topology_details = monitor.get_full_topology()  # Використовуємо новий метод
         
@@ -67,7 +67,7 @@ def statistics():
         return str(e), 500
 
 @app.route("/statistics/flow-table-stat")
-def statistics():
+def statistics_flow_table_stat():
     try:
         topology_details = monitor.get_full_topology()  # Використовуємо новий метод
         
@@ -78,7 +78,7 @@ def statistics():
         return str(e), 500
 
 @app.route("/statistics/aggregate-flow-stat")
-def statistics():
+def statistics_aggregate_flow_stat():
     try:
         topology_details = monitor.get_full_topology()  # Використовуємо новий метод
         
@@ -89,7 +89,7 @@ def statistics():
         return str(e), 500
 
 @app.route("/statistics/ports-stat")
-def statistics():
+def statistics_ports_stat():
     try:
         topology_details = monitor.get_full_topology()  # Використовуємо новий метод
         
