@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="content">
+            <h2>Flow Statistics</h2>
+            
+            <table>
+                <thead>
+                    <th>Node ID</th>
+                    <th>Hardware</th>
+                    <th>Table ID</th>
+                    <th>Flow ID</th>
+                    <th>Byte Count</th>
+                    <th>Packet Count</th>
+                    <th>Duration (ns)</th>
+                    <th>Duration (s)</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>openflow:195793755408970</td>
+                        <td>Open vSwitch</td>
+                        <td>0</td>
+                        <td>#UF$TABLE*0-22</td>
+                        <td>4282</td>
+                        <td>82</td>
+                        <td>109000000</td>
+                        <td>162</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+{% endblock %}

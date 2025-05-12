@@ -54,6 +54,50 @@ def network_management():
         return render_template("network_management.html", graph_data=json.dumps(graph_data))
     except Exception as e:
         return str(e), 500
+    
+@app.route("/statistics/flow-stat")
+def statistics():
+    try:
+        topology_details = monitor.get_full_topology()  # Використовуємо новий метод
+        
+        # Підготовка даних для графа
+        graph_data = prepare_graph_data(topology_details)
+        return render_template("statistics.html", graph_data=json.dumps(graph_data))
+    except Exception as e:
+        return str(e), 500
+
+@app.route("/statistics/flow-table-stat")
+def statistics():
+    try:
+        topology_details = monitor.get_full_topology()  # Використовуємо новий метод
+        
+        # Підготовка даних для графа
+        graph_data = prepare_graph_data(topology_details)
+        return render_template("statistics.html", graph_data=json.dumps(graph_data))
+    except Exception as e:
+        return str(e), 500
+
+@app.route("/statistics/aggregate-flow-stat")
+def statistics():
+    try:
+        topology_details = monitor.get_full_topology()  # Використовуємо новий метод
+        
+        # Підготовка даних для графа
+        graph_data = prepare_graph_data(topology_details)
+        return render_template("statistics.html", graph_data=json.dumps(graph_data))
+    except Exception as e:
+        return str(e), 500
+
+@app.route("/statistics/ports-stat")
+def statistics():
+    try:
+        topology_details = monitor.get_full_topology()  # Використовуємо новий метод
+        
+        # Підготовка даних для графа
+        graph_data = prepare_graph_data(topology_details)
+        return render_template("statistics.html", graph_data=json.dumps(graph_data))
+    except Exception as e:
+        return str(e), 500
 
 if __name__ == "__main__":
     app.run()
