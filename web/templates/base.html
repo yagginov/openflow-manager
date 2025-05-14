@@ -36,30 +36,54 @@
     // Налаштування графа
     const options = {
         nodes: {
-            shape: 'image', // Використовуємо зображення
-            size: 15,
+            shape: 'image',
+            size: 20,
             font: {
-                size: 15,
-                valign: 'bottom' // Назва під картинкою
+                size: 14,
+                color: '#e0e0e0', // світлий текст
+                strokeWidth: 2,
+                strokeColor: '#121212'
+            },
+            borderWidth: 2,
+            color: {
+                border: '#bb86fc',
+                background: '#1e1e1e',
+                highlight: {
+                    border: '#ffffff',
+                    background: '#2a2a2a'
+                }
             }
         },
         edges: {
-            font: {
-                align: 'top'
+            color: {
+                color: '#888',
+                highlight: '#bb86fc',
+                hover: '#ffffff',
+                inherit: false
             },
+            width: 2,
             smooth: true
         },
         groups: {
             switch: {
                 shape: 'image',
-                image: '/static/images/switch.png', // Шлях до зображення для свічів
-                size: 15
+                image: '/static/images/switch.png',
+                size: 30,
+                font: {
+                    color: '#e0e0e0'
+                }
             },
             computer: {
                 shape: 'image',
-                image: '/static/images/computer.png', // Шлях до зображення для комп'ютерів
-                size: 10
+                image: '/static/images/computer.png',
+                size: 25,
+                font: {
+                    color: '#e0e0e0'
+                }
             }
+        },
+        interaction: {
+            hover: true
         },
         physics: {
             enabled: true
