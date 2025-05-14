@@ -31,15 +31,32 @@ h3 {
 
 .navigation-buttons {
     background-color: $dark-card;
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
 
     button {
-        background-color: $dark-bg;
-        border-color: $dark-border;
-        border-radius: 2px;
-        text-align: center;
-        margin: 10px auto;
-    }
+        background-color: $dark-accent;
+        color: $dark-text;
+        border: none;
+        border-radius: 8px;
+        padding: 10px 20px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
 
+        &:hover {
+            background-color: $dark-hover;
+            transform: scale(1.05);
+        }
+
+        &:active {
+            transform: scale(0.98);
+        }
+    }
 }
 
 table {
