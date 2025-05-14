@@ -29,6 +29,19 @@ h3 {
     margin-bottom: 10px;
 }
 
+.navigation-buttons {
+    background-color: $dark-card;
+
+    button {
+        background-color: $dark-bg;
+        border-color: $dark-border;
+        border-radius: 2px;
+        text-align: center;
+        margin: 10px auto;
+    }
+
+}
+
 table {
     width: 100%;
     max-width: 800px;
