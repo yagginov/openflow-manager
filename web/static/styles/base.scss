@@ -47,7 +47,7 @@ main {
         max-width: 1000px;
         height: 600px;
         border: 4px solid $dark-border;
-        background-color: white;
+        background-color: $dark-card; 
         overflow: hidden;
         margin: 0 auto;
     }
