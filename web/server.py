@@ -14,11 +14,17 @@ controller = OpenFlowController("http://localhost:8181", "admin", "admin")
 @app.route("/")
 def index():
     try:
-        topology_details = monitor.get_full_topology()  
-        # Сортуємо порти для кожного вузла
-        for node in topology_details["nodes"]["node"]:
-            node["node-connector"] = sort_ports_by_name(node["node-connector"])
-        
+        topology_details = monitor.get_full_topology()          
+        # Підготовка даних для графа
+        graph_data = prepare_graph_data(topology_details)
+        return render_template("index.html", topology=topology_details, graph_data=json.dumps(graph_data))
+    except Exception as e:
+        return str(e), 500
+
+@app.route("/debug-info")
+def debug_info():
+    try:
+        topology_details = monitor.get_full_topology()          
         # Підготовка даних для графа
         graph_data = prepare_graph_data(topology_details)
         return render_template("index.html", topology=topology_details, graph_data=json.dumps(graph_data))

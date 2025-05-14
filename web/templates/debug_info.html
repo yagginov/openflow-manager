@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="content">
+    <h2>Raw Topology Data</h2>
+    <pre>
+        {{ topology | tojson(indent=2) }}
+    </pre>
+
+</div>
+{% endblock %}
