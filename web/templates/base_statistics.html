@@ -2,31 +2,40 @@
 
 {% block content %}
 <div class="content">
-            <h2>Flow Statistics</h2>
-            
-            <table>
-                <thead>
-                    <th>Node ID</th>
-                    <th>Hardware</th>
-                    <th>Table ID</th>
-                    <th>Flow ID</th>
-                    <th>Byte Count</th>
-                    <th>Packet Count</th>
-                    <th>Duration (ns)</th>
-                    <th>Duration (s)</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>openflow:195793755408970</td>
-                        <td>Open vSwitch</td>
-                        <td>0</td>
-                        <td>#UF$TABLE*0-22</td>
-                        <td>4282</td>
-                        <td>82</td>
-                        <td>109000000</td>
-                        <td>162</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    <h2>{{ title }}</h2>
+
+    <table id="data-table" class="display">
+        <thead>
+            <tr>
+                {% for header in headers %}
+                    <th>{{ header }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+                <tr>
+                    {% for cell in row %}
+                        <td>{{ cell }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- DataTables CDN -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#data-table').DataTable({
+            paging: true,
+            searching: true,
+            ordering: true
+        });
+    });
+</script>
 {% endblock %}
