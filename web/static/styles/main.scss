@@ -1,4 +1,215 @@
 // This file imports both base.scss and index.scss, serving as the main stylesheet for the project.
+// --- Color variables ---
+$bg-color: #121212;
+$border-color: #333;
+$card-color: #1e1e1e;
+$text-color: #e0e0e0;
+$accent-color: #bb86fc;
+$hover-color: #3700b3;
+$active-color: blue;
 
-@import 'base';
-@import 'index';
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: $bg-color;
+    color: $text-color;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background-color: $card-color;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    padding: 0 20px;
+    justify-content: space-between;
+
+    .home__link {
+        font-size: 18px;
+        color: $text-color;
+        text-decoration: none;
+        display: block;
+        margin-left: 20px;
+        padding: 10px;
+        height: 40px;
+        line-height: 40px;
+        margin: 10px 0;
+        border: 1px solid white;
+    }
+
+    .home__link:hover {
+        background-color: $hover-color;
+    }
+
+    .home__link:active {
+        background-color: $active-color;
+    }
+
+    .nav {
+        .nav__list {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+            gap: 20px;
+
+            .nav__link {
+                font-size: 18px;
+                color: $text-color;
+                text-decoration: none;
+                display: block;
+                margin-left: 20px;
+                padding: 10px 5px;
+                height: 40px;
+                line-height: 40px;
+                margin: 10px 0;
+            }
+
+            .nav__link:hover {
+                background-color: $hover-color;
+            }
+
+            .nav__link:active {
+                color: $active-color;
+            }
+        }
+    }
+}
+
+.network-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+
+    #network {
+        width: 75%;
+        max-width: 1000px;
+        height: 600px;
+        border: 4px solid $border-color;
+        background-color: $card-color; 
+        overflow: hidden;
+        margin: 0 auto;
+    }
+}
+
+main {
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+    flex: 1;
+}
+
+footer {
+    background-color: $card-color;
+    text-align: center;
+    padding: 10px;
+    color: $text-color;
+    margin-bottom: 0px;
+}
+
+.content {
+    text-align: center;
+    padding: 20px;
+}
+
+h1, h2, h3 {
+    color: $accent-color;
+    text-align: center;
+}
+
+h1 { margin-bottom: 20px; }
+h2 { margin-bottom: 15px; }
+h3 { margin-bottom: 10px; }
+
+.navigation-buttons {
+    background-color: $card-color;
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    button {
+        background-color: $accent-color;
+        color: $text-color;
+        border: none;
+        border-radius: 8px;
+        padding: 10px 20px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+
+        &:hover {
+            background-color: $hover-color;
+            transform: scale(1.05);
+        }
+
+        &:active {
+            transform: scale(0.98);
+        }
+    }
+}
+
+table {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto 20px auto;
+    border-collapse: collapse;
+    background-color: $card-color;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+
+    thead {
+        background-color: $hover-color;
+    }
+
+    th, td {
+        padding: 10px;
+        border: 1px solid $border-color;
+        text-align: center;
+        white-space: nowrap;
+        color: $text-color;
+    }
+
+    th {
+        font-weight: bold;
+    }
+
+    tbody tr:nth-child(even) {
+        background-color: $bg-color;
+    }
+
+    tbody tr:nth-child(odd) {
+        background-color: $card-color;
+    }
+
+    tbody tr:hover {
+        background-color: $hover-color;
+        color: $text-color;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+}
+
+pre {
+    text-align: left;
+    background-color: $card-color;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    overflow-x: auto;
+    max-width: 800px;
+    margin: 20px auto;
+    color: $text-color;
+    font-family: "Courier New", Courier, monospace;
+}

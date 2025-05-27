@@ -101,21 +101,20 @@ footer {
   padding: 20px;
 }
 
-h1 {
+h1, h2, h3 {
   color: #bb86fc;
   text-align: center;
+}
+
+h1 {
   margin-bottom: 20px;
 }
 
 h2 {
-  color: #bb86fc;
-  text-align: center;
   margin-bottom: 15px;
 }
 
 h3 {
-  color: #bb86fc;
-  text-align: center;
   margin-bottom: 10px;
 }
 
