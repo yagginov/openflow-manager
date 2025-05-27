@@ -23,10 +23,23 @@ header {
   padding: 0 20px;
   justify-content: space-between;
 }
-header h1 {
-  font-size: 2.5em;
-  margin: 0;
-  color: #bb86fc;
+header .home__link {
+  font-size: 18px;
+  color: #e0e0e0;
+  text-decoration: none;
+  display: block;
+  margin-left: 20px;
+  padding: 10px;
+  height: 40px;
+  line-height: 40px;
+  margin: 10px 0;
+  border: 1px solid white;
+}
+header .home__link:hover {
+  background-color: #3700b3;
+}
+header .home__link:active {
+  background-color: blue;
 }
 header .nav .nav__list {
   list-style: none;
