@@ -40,17 +40,6 @@ def add_flow():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-@app.route("/statistics")
-def statistics():
-    try:
-        topology_details = monitor.get_full_topology()  
-        
-        # Підготовка даних для графа
-        graph_data = prepare_graph_data(topology_details)
-        return render_template("statistics.html", graph_data=json.dumps(graph_data))
-    except Exception as e:
-        return str(e), 500
-
 @app.route("/network-management")
 def network_management():
     try:
