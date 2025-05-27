@@ -2,6 +2,8 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 body {
@@ -15,18 +17,40 @@ body {
 
 header {
   background-color: #1e1e1e;
-  padding: 20px;
+  display: flex;
+  align-items: center;
   text-align: center;
+  padding: 0 20px;
+  justify-content: space-between;
 }
 header h1 {
   font-size: 2.5em;
   margin: 0;
   color: #bb86fc;
 }
-
-main {
-  padding: 20px;
-  box-sizing: border-box;
+header .nav .nav__list {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  gap: 20px;
+}
+header .nav .nav__list .nav__link {
+  font-size: 18px;
+  color: #e0e0e0;
+  text-decoration: none;
+  display: block;
+  margin-left: 20px;
+  padding: 10px 5px;
+  height: 40px;
+  line-height: 40px;
+  margin: 10px 0;
+}
+header .nav .nav__list .nav__link:hover {
+  background-color: #3700b3;
+}
+header .nav .nav__list .nav__link:active {
+  color: blue;
 }
 
 .network-wrapper {
@@ -44,11 +68,19 @@ main {
   margin: 0 auto;
 }
 
+main {
+  text-align: center;
+  padding: 20px;
+  box-sizing: border-box;
+  flex: 1;
+}
+
 footer {
   background-color: #1e1e1e;
   text-align: center;
   padding: 10px;
   color: #e0e0e0;
+  margin-bottom: 0px;
 }
 
 .content {
