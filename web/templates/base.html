@@ -9,6 +9,26 @@
 <body>
     <header>
         <h1>{% block header %}SDN Traffic Monitor{% endblock %}</h1>
+
+        <nav class="nav">
+            <ul class="nav__list">
+                <li>
+                    <a href="/statistics/flow-stat" class="nav__link">Flow Statistics</a>
+                </li>
+                <li>
+                    <a href="/statistics/flow-table-stat" class="nav__link">Flow Table Statistics</a>
+                </li>
+                <li>
+                    <a href="/statistics/aggregate-flow-stat" class="nav__link">Aggregate Flow Statistics</a>
+                </li>
+                <li>
+                    <a href="/statistics/ports-stat" class="nav__link">Ports Statistics</a>
+                </li>
+                <li>
+                    <a href="" class="nav__link">Network Management</a>
+                </li>
+            </ul>
+        </nav>
     </header>
 
     <div class="network-wrapper">
@@ -40,7 +60,7 @@
             size: 15,
             font: {
                 size: 14,
-                color: '#e0e0e0', // світлий текст
+                color: '#e0e0e0',
                 strokeWidth: 2,
                 strokeColor: '#121212'
             },

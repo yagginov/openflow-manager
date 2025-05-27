@@ -5,36 +5,75 @@ $dark-card: #1e1e1e;
 $dark-text: #e0e0e0;
 $dark-accent: #bb86fc;
 
+
+$bg-color: #121212;
+$border-color: #333;
+$card-color: #1e1e1e;
+$text-color: #e0e0e0;
+$accent-color: #bb86fc;
+$hover-color: #3700b3;
+$active-color: blue;
+
 html, body {
     height: 100%;
     margin: 0;
     padding: 0;
+    display: flex;
+    flex-direction: column;
 }
 
 body {
     font-family: Arial, sans-serif;
-    background-color: $dark-background;
-    color: $dark-text;
+    background-color: $bg-color;
+    color: $text-color;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
 header {
-    background-color: $dark-card;
-    padding: 20px;
+    background-color: $card-color;
+    display: flex;
+    align-items: center;
     text-align: center;
+    padding: 0 20px;
+    justify-content: space-between;
 
     h1 {
         font-size: 2.5em;
         margin: 0;
-        color: $dark-accent;
+        color: $accent-color;
     }
-}
 
-main {
-    padding: 20px;
-    box-sizing: border-box;
+    .nav {
+        .nav__list {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+            gap: 20px;
+
+            .nav__link {
+                font-size: 18px;
+                color: $text-color;
+                text-decoration: none;
+                display: block;
+                margin-left: 20px;
+                padding: 10px 5px;
+                height: 40px;
+                line-height: 40px;
+                margin: 10px 0;
+            }
+
+            .nav__link:hover {
+                background-color: $hover-color;
+            }
+
+            .nav__link:active {
+                color: $active-color;
+            }
+        }
+    }
 }
 
 .network-wrapper {
@@ -46,16 +85,24 @@ main {
         width: 75%;
         max-width: 1000px;
         height: 600px;
-        border: 4px solid $dark-border;
-        background-color: $dark-card; 
+        border: 4px solid $border-color;
+        background-color: $card-color; 
         overflow: hidden;
         margin: 0 auto;
     }
 }
 
+main {
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+    flex: 1;
+}
+
 footer {
-    background-color: $dark-card;
+    background-color: $card-color;
     text-align: center;
     padding: 10px;
-    color: $dark-text;
+    color: $text-color;
+    margin-bottom: 0px;
 }

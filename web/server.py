@@ -62,79 +62,35 @@ def network_management():
     except Exception as e:
         return str(e), 500
     
-@app.route("/statistics/flow-stat")
-def statistics_flow_stat():
+@app.route("/statistics/<stat_type>")
+def statistics(stat_type):
     try:
-        topology_details = monitor.get_full_topology()  
-        
-        # Підготовка даних для графа
+        topology_details = monitor.get_full_topology()
         graph_data = prepare_graph_data(topology_details)
 
-        stat_table = monitor.get_flow_statistics()
+        # Визначаємо, яку статистику повертати
+        if stat_type == "flow-stat":
+            stat_table = monitor.get_flow_statistics()
+            title = "Flow Statistics"
+        elif stat_type == "flow-table-stat":
+            stat_table = monitor.get_flow_table_statistics()
+            title = "Flow Table Statistics"
+        elif stat_type == "aggregate-flow-stat":
+            stat_table = monitor.get_aggregate_flow_statistics()
+            title = "Aggregate Flow Statistics"
+        elif stat_type == "ports-stat":
+            stat_table = monitor.get_ports_statistics()
+            title = "Ports Statistics"
+        else:
+            return "Unknown statistics type", 404
+
         return render_template(
-            "base_statistics.html", 
+            "base_statistics.html",
             graph_data=json.dumps(graph_data),
-            title="Flow Statistics",
-            headers = stat_table.columns.tolist(),
-            data = stat_table.values.tolist()
-            )
-    except Exception as e:
-        return str(e), 500
-
-@app.route("/statistics/flow-table-stat")
-def statistics_flow_table_stat():
-    try:
-        topology_details = monitor.get_full_topology()  
-        
-        # Підготовка даних для графа
-        graph_data = prepare_graph_data(topology_details)
-
-        stat_table = monitor.get_flow_table_statistics()
-        return render_template(
-            "base_statistics.html", 
-            graph_data=json.dumps(graph_data),
-            title="Flow Table Statistics",
-            headers = stat_table.columns.tolist(),
-            data = stat_table.values.tolist()
-            )
-    except Exception as e:
-        return str(e), 500
-
-@app.route("/statistics/aggregate-flow-stat")
-def statistics_aggregate_flow_stat():
-    try:
-        topology_details = monitor.get_full_topology()  
-        
-        # Підготовка даних для графа
-        graph_data = prepare_graph_data(topology_details)
-
-        stat_table = monitor.get_aggregate_flow_statistics()
-        return render_template(
-            "base_statistics.html", 
-            graph_data=json.dumps(graph_data),
-            title="Aggregate Flow Statistics",
-            headers = stat_table.columns.tolist(),
-            data = stat_table.values.tolist()
-            )
-    except Exception as e:
-        return str(e), 500
-
-@app.route("/statistics/ports-stat")
-def statistics_ports_stat():
-    try:
-        topology_details = monitor.get_full_topology()  
-        
-        # Підготовка даних для графа
-        graph_data = prepare_graph_data(topology_details)
-
-        stat_table = monitor.get_ports_statistics()
-        return render_template(
-            "base_statistics.html", 
-            graph_data=json.dumps(graph_data),
-            title="Ports Statistics",
-            headers = stat_table.columns.tolist(),
-            data = stat_table.values.tolist()
-            )
+            title=title,
+            headers=stat_table.columns.tolist(),
+            data=stat_table.values.tolist()
+        )
     except Exception as e:
         return str(e), 500
 
