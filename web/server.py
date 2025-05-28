@@ -6,6 +6,7 @@ import json
 import pandas as pd
 
 app = Flask(__name__)
+app.secret_key = 'yagginov-secret-key'
 
 monitor = OpenFlowMonitor()
 controller = OpenFlowController()
@@ -95,7 +96,6 @@ def statistics(stat_type):
 
 @app.route('/flows/delete/<node_id>/<table_id>/<flow_id>', methods=['POST'])
 def delete_flow(node_id, table_id, flow_id):
-    controller = OpenFlowController()
     try:
         controller.delete_flow(node_id, table_id, flow_id)
         flash('Flow deleted successfully', 'success')
