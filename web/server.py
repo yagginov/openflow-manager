@@ -1,7 +1,6 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, flash, redirect, url_for
 from app.monitor import OpenFlowMonitor
 from app.controller import OpenFlowController
-from app.port_utils import sort_ports_by_name
 from app.graph_utils import prepare_graph_data
 import json
 import pandas as pd
@@ -9,7 +8,7 @@ import pandas as pd
 app = Flask(__name__)
 
 monitor = OpenFlowMonitor()
-controller = OpenFlowController("http://localhost:8181", "admin", "admin")
+controller = OpenFlowController()
 
 @app.route("/")
 def index():
@@ -31,14 +30,25 @@ def debug_info():
     except Exception as e:
         return str(e), 500
 
-@app.route("/add_flow", methods=["POST"])
-def add_flow():
-    data = request.json
-    try:
-        controller.add_flow(data["node_id"], data["flow_id"], data["match"], data["actions"])
-        return jsonify({"status": "success"})
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+@app.route('/flows')
+def flows():
+    monitor = OpenFlowMonitor()
+    nodes = monitor.get_nodes()
+    flows_data = []
+    for node in nodes:
+        node_id = node["id"]
+        for table in node.get("flow-node-inventory:table", []):
+            table_id = table["id"]
+            for flow in table.get("flow", []):
+                flow_id = flow["id"]
+                priority = flow.get("priority", "")
+                match = flow.get("match", {})
+                actions = flow.get("instructions", {})
+                flows_data.append([
+                    node_id, table_id, flow_id, priority, str(match), str(actions)
+                ])
+    headers = ["Node ID", "Table ID", "Flow ID", "Priority", "Match", "Actions", "Edit", "Delete"]
+    return render_template("flows.html", title="Active Flows", headers=headers, data=flows_data)
 
 @app.route("/network-management")
 def network_management():
@@ -82,6 +92,23 @@ def statistics(stat_type):
         )
     except Exception as e:
         return str(e), 500
+
+@app.route('/flows/delete/<node_id>/<table_id>/<flow_id>', methods=['POST'])
+def delete_flow(node_id, table_id, flow_id):
+    controller = OpenFlowController()
+    try:
+        controller.delete_flow(node_id, table_id, flow_id)
+        flash('Flow deleted successfully', 'success')
+    except Exception as e:
+        flash(f'Error deleting flow: {e}', 'danger')
+    return redirect(url_for('flows'))
+
+@app.route('/flows/edit/<node_id>/<table_id>/<flow_id>', methods=['GET', 'POST'])
+def edit_flow(node_id, table_id, flow_id):
+    # Тут реалізуйте форму для перегляду/редагування flow
+    # GET: показати форму з поточними даними flow
+    # POST: зберегти зміни через controller.create_flow(...)
+    pass
 
 if __name__ == "__main__":
     app.run()

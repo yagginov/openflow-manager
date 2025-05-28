@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="content">
+    <h2>{{ title }}</h2>
+    <table id="flows-table" class="display">
+        <thead>
+            <tr>
+                {% for header in headers %}
+                    <th>{{ header }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+                <tr>
+                    {% for cell in row %}
+                        <td>{{ cell }}</td>
+                    {% endfor %}
+                    <td>
+                        <a href="{{ url_for('edit_flow', node_id=row[0], table_id=row[1], flow_id=row[2]) }}" class="btn btn-primary btn-sm">Edit</a>
+                    </td>
+                    <td>
+                        <form method="post" action="{{ url_for('delete_flow', node_id=row[0], table_id=row[1], flow_id=row[2]) }}" style="display:inline;">
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Delete this flow?');">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#flows-table').DataTable({
+            paging: true,
+            searching: true,
+            ordering: true
+        });
+    });
+</script>
+{% endblock %}
