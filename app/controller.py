@@ -7,13 +7,11 @@ with open("app/config.json", "r") as config_file:
 
 BASE_URL = config["BASE_URL"]
 HEADERS = config["HEADERS"]
-AUTH = (config["USERNAME"], config["PASSWORD"])
 
 class OpenFlowController:
     def __init__(self):
         self.base_url = BASE_URL
         self.headers = HEADERS
-        self.auth = AUTH
 
     def create_flow(self, node_id, table_id, flow_id, flow_data):
         """
@@ -21,7 +19,7 @@ class OpenFlowController:
         flow_data — це словник з усіма параметрами flow (відповідає структурі OpenFlow).
         """
         url = f"{self.base_url}/restconf/config/opendaylight-inventory:nodes/node/{node_id}/table/{table_id}/flow/{flow_id}"
-        response = requests.put(url, json=flow_data, headers=self.headers, auth=self.auth)
+        response = requests.put(url, json=flow_data, headers=self.headers)
         if response.status_code in [200, 201]:
             return response.json()
         else:
@@ -32,7 +30,7 @@ class OpenFlowController:
         Видалити flow з вказаного вузла, таблиці та flow_id.
         """
         url = f"{self.base_url}/restconf/config/opendaylight-inventory:nodes/node/{node_id}/table/{table_id}/flow/{flow_id}"
-        response = requests.delete(url, headers=self.headers, auth=self.auth)
+        response = requests.delete(url, headers=self.headers)
         if response.status_code in [200, 204]:
             return True
         else:
