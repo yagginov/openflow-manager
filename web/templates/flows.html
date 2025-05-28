@@ -14,7 +14,7 @@
         <tbody>
             {% for row in data %}
                 <tr>
-                    {% for cell in row %}
+                    {% for cell in row[0:4] %}
                         <td>{{ cell }}</td>
                     {% endfor %}
                     <td>
