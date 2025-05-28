@@ -91,10 +91,13 @@ def delete_flow(node_id, table_id, flow_id):
 
 @app.route('/flows/edit/<node_id>/<table_id>/<flow_id>', methods=['GET', 'POST'])
 def edit_flow(node_id, table_id, flow_id):
-    # Тут реалізуйте форму для перегляду/редагування flow
-    # GET: показати форму з поточними даними flow
-    # POST: зберегти зміни через controller.create_flow(...)
-    pass
+    # Отримати інформацію про flow через monitor
+    flow_info = monitor.get_flow_info(node_id, table_id, flow_id)
+    if flow_info is None:
+        flash('Flow not found', 'danger')
+        return redirect(url_for('flows'))
+    # Показати інформацію у вигляді JSON на сторінці
+    return render_template("edit_flow.html", flow_info=json.dumps(flow_info, indent=2, ensure_ascii=False))
 
 if __name__ == "__main__":
     app.run()

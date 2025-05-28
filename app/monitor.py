@@ -163,3 +163,15 @@ class OpenFlowMonitor:
 
         flows_df = pd.DataFrame(flows_data, columns=columns)
         return flows_df
+    
+    def get_flow_info(self, node_id, table_id, flow_id):
+        """Повертає інформацію про конкретний flow."""
+        nodes = self.get_nodes()
+        for node in nodes:
+            if node["id"] == node_id:
+                for table in node.get("flow-node-inventory:table", []):
+                    if str(table["id"]) == str(table_id):
+                        for flow in table.get("flow", []):
+                            if str(flow["id"]) == str(flow_id):
+                                return flow
+        return None

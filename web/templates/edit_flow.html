@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Flow{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Edit Flow</h2>
+    <div style="margin-bottom: 1em;">
+        <a href="{{ url_for('flows') }}" class="btn">← Back to Flows</a>
+    </div>
+    <div>
+        <h4>Flow Information (JSON)</h4>
+        <pre style="background:#232323; color:#e0e0e0; padding:1em; border-radius:6px; overflow-x:auto;">{{ flow_info }}</pre>
+    </div>
+</div>
+{% endblock %}
