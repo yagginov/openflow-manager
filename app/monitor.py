@@ -156,7 +156,7 @@ class OpenFlowMonitor:
                     flow_id = flow["id"]
                     priority = flow.get("priority", "")
                     flows_data.append([
-                        node_id, table_id, flow_id, priority
+                        node_id, table_id, flow_id, priority, "", ""
                     ])
 
         columns = ["Node ID", "Table ID", "Flow ID", "Priority", "Edit", "Delete"]
