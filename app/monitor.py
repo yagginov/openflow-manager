@@ -143,3 +143,23 @@ class OpenFlowMonitor:
         ]
         ports_statistics_df = pd.DataFrame(ports_statistics, columns=columns)
         return ports_statistics_df
+    
+
+    def get_flows(self):
+        nodes = self.get_nodes()
+        flows_data = []
+        for node in nodes:
+            node_id = node["id"]
+            for table in node.get("flow-node-inventory:table", []):
+                table_id = table["id"]
+                for flow in table.get("flow", []):
+                    flow_id = flow["id"]
+                    priority = flow.get("priority", "")
+                    flows_data.append([
+                        node_id, table_id, flow_id, priority
+                    ])
+
+        columns = ["Node ID", "Table ID", "Flow ID", "Priority", "Edit", "Delete"]
+
+        flows_df = pd.DataFrame(flows_data, columns=columns)
+        return flows_df

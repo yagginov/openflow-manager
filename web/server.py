@@ -33,23 +33,20 @@ def debug_info():
 
 @app.route('/flows')
 def flows():
-    monitor = OpenFlowMonitor()
-    nodes = monitor.get_nodes()
-    flows_data = []
-    for node in nodes:
-        node_id = node["id"]
-        for table in node.get("flow-node-inventory:table", []):
-            table_id = table["id"]
-            for flow in table.get("flow", []):
-                flow_id = flow["id"]
-                priority = flow.get("priority", "")
-                match = flow.get("match", {})
-                actions = flow.get("instructions", {})
-                flows_data.append([
-                    node_id, table_id, flow_id, priority, str(match), str(actions)
-                ])
-    headers = ["Node ID", "Table ID", "Flow ID", "Priority", "Match", "Actions", "Edit", "Delete"]
-    return render_template("flows.html", title="Active Flows", headers=headers, data=flows_data)
+    try:
+        topology_details = monitor.get_full_topology()
+        graph_data = prepare_graph_data(topology_details)
+
+        flows = monitor.get_flows()
+        return render_template(
+            "flows.html", 
+            graph_data=json.dumps(graph_data),
+            title="Active Flows", 
+            headers=flows.columns.tolist(), 
+            data=flows.values.tolist()
+            )
+    except Exception as e:
+        return str(e), 500
 
 @app.route("/network-management")
 def network_management():
