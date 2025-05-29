@@ -81,13 +81,30 @@ def delete_flow(node_id, table_id, flow_id):
 
 @app.route('/flows/edit/<node_id>/<table_id>/<flow_id>', methods=['GET', 'POST'])
 def edit_flow(node_id, table_id, flow_id):
-    # Отримати інформацію про flow через monitor
-    flow_info = monitor.get_flow_info(node_id, table_id, flow_id)
-    if flow_info is None:
-        flash('Flow not found', 'danger')
-        return redirect(url_for('flows'))
-    # Показати інформацію у вигляді JSON на сторінці
-    return render_template("edit_flow.html", flow_info=json.dumps(flow_info, indent=2, ensure_ascii=False))
+    if request.method == 'POST':
+        # Збираємо flow entry з форми
+        try:
+            flow_entry = {
+                "id": request.form.get("id"),
+                "priority": int(request.form.get("priority")),
+                "table_id": int(request.form.get("table_id")),
+                "match": json.loads(request.form.get("match")),
+                "instructions": json.loads(request.form.get("instructions")),
+                # Додайте інші поля за потреби
+            }
+            controller.update_flow(node_id, table_id, flow_id, flow_entry)
+            flash('Flow updated successfully', 'success')
+            return redirect(url_for('flows'))
+        except Exception as e:
+            flash(f'Error updating flow: {e}', 'danger')
+            # Повертаємо форму з введеними даними
+            return render_template("edit_flow.html", flow_info=request.form)
+    else:
+        flow_info = monitor.get_flow_info(node_id, table_id, flow_id)
+        if flow_info is None:
+            flash('Flow not found', 'danger')
+            return redirect(url_for('flows'))
+        return render_template("edit_flow.html", flow_info=flow_info)
 
 if __name__ == "__main__":
     app.run()

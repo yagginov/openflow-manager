@@ -8,9 +8,29 @@
     <div style="margin-bottom: 1em;">
         <a href="{{ url_for('flows') }}" class="btn">← Back to Flows</a>
     </div>
-    <div>
-        <h4>Flow Information (JSON)</h4>
-        <pre style="background:#232323; color:#e0e0e0; padding:1em; border-radius:6px; overflow-x:auto;">{{ flow_info }}</pre>
-    </div>
+    <form method="post">
+        <div class="form-group">
+            <label>ID</label>
+            <input type="text" name="id" class="form-control" value="{{ flow_info['id'] if flow_info['id'] is defined else '' }}" required>
+        </div>
+        <div class="form-group">
+            <label>Priority</label>
+            <input type="number" name="priority" class="form-control" value="{{ flow_info['priority'] if flow_info['priority'] is defined else '' }}" required>
+        </div>
+        <div class="form-group">
+            <label>Table ID</label>
+            <input type="number" name="table_id" class="form-control" value="{{ flow_info['table_id'] if flow_info['table_id'] is defined else '' }}" required>
+        </div>
+        <div class="form-group">
+            <label>Match (JSON)</label>
+            <textarea name="match" class="form-control" rows="4" required>{{ flow_info['match'] | tojson if flow_info['match'] is defined else '{}' }}</textarea>
+        </div>
+        <div class="form-group">
+            <label>Instructions (JSON)</label>
+            <textarea name="instructions" class="form-control" rows="4" required>{{ flow_info['instructions'] | tojson if flow_info['instructions'] is defined else '[]' }}</textarea>
+        </div>
+        <!-- Додайте інші поля за потреби -->
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
 </div>
 {% endblock %}
