@@ -1,7 +1,8 @@
 from app.opendaylight_client import (
     get_topology_details,
     get_topology_links,
-    get_flow_ids 
+    get_config_topology_details,
+    get_config_flow_info
 )
 import pandas as pd
 
@@ -21,6 +22,11 @@ class OpenFlowMonitor:
         
     def get_nodes(self):
         topology_details = self.get_full_topology()
+        nodes = topology_details.get("nodes", {}).get("node", {})
+        return nodes
+    
+    def get_config_nodes(self):
+        topology_details = get_config_topology_details()
         nodes = topology_details.get("nodes", {}).get("node", {})
         return nodes
 
@@ -147,7 +153,7 @@ class OpenFlowMonitor:
     
 
     def get_flows(self):
-        nodes = self.get_nodes()
+        nodes = self.get_config_nodes()
         flows_data = []
         for node in nodes:
             node_id = node["id"]
@@ -165,23 +171,6 @@ class OpenFlowMonitor:
         flows_df = pd.DataFrame(flows_data, columns=columns)
         return flows_df
     
-    def get_flows(self):
-        nodes = self.get_nodes()
-        flows_data = []
-        for node in nodes:
-            node_id = node["id"]
-            for table in node.get("flow-node-inventory:table", []):
-                table_id = table["id"]
-                # Отримуємо справжні айдішки потоків через RESTCONF config endpoint
-                try:
-                    flow_ids = get_flow_ids(node_id, table_id)
-                except Exception as e:
-                    flow_ids = []
-                for flow_id in flow_ids:
-                    flows_data.append([
-                        node_id, table_id, flow_id, "", "", ""
-                    ])
-
-        columns = ["Node ID", "Table ID", "Flow ID", "Priority", "Edit", "Delete"]
-        flows_df = pd.DataFrame(flows_data, columns=columns)
-        return flows_df
+    def get_flow_info(self, node_id, table_id, flow_id):
+        """Повертає інформацію про конкретний flow."""
+        return self.get_config_flow_info()
