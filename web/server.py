@@ -21,16 +21,6 @@ def index():
     except Exception as e:
         return str(e), 500
 
-@app.route("/debug-info")
-def debug_info():
-    try:
-        topology_details = monitor.get_full_topology()          
-        # Підготовка даних для графа
-        graph_data = prepare_graph_data(topology_details)
-        return render_template("debug_info.html", topology=topology_details, graph_data=json.dumps(graph_data))
-    except Exception as e:
-        return str(e), 500
-
 @app.route('/flows')
 def flows():
     try:
