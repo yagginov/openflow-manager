@@ -173,4 +173,4 @@ class OpenFlowMonitor:
     
     def get_flow_info(self, node_id, table_id, flow_id):
         """Повертає інформацію про конкретний flow."""
-        return get_config_flow_info()
+        return get_config_flow_info(node_id, table_id, flow_id)
