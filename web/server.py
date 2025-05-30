@@ -145,6 +145,8 @@ def edit_flow(node_id, table_id, flow_id):
                 "instructions": instructions
             }
 
+            print(flow_entry)
+
             controller.create_flow(node_id, table_id, flow_id, flow_entry)
             flash('Flow updated successfully', 'success')
             return redirect(url_for('flows'))
