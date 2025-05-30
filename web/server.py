@@ -11,12 +11,15 @@ app.secret_key = 'yagginov-secret-key'
 monitor = OpenFlowMonitor()
 controller = OpenFlowController()
 
+def get_topology_and_graph(monitor):
+    topology_details = monitor.get_full_topology()
+    graph_data = prepare_graph_data(topology_details)
+    return topology_details, graph_data
+
 @app.route("/")
 def index():
     try:
-        topology_details = monitor.get_full_topology()          
-        # Підготовка даних для графа
-        graph_data = prepare_graph_data(topology_details)
+        topology_details, graph_data = get_topology_and_graph(monitor)
         return render_template("index.html", topology=topology_details, graph_data=json.dumps(graph_data))
     except Exception as e:
         return str(e), 500
@@ -24,8 +27,7 @@ def index():
 @app.route('/flows')
 def flows():
     try:
-        topology_details = monitor.get_full_topology()
-        graph_data = prepare_graph_data(topology_details)
+        topology_details, graph_data = get_topology_and_graph(monitor)
 
         flows = monitor.get_flows()
         return render_template(
@@ -38,28 +40,21 @@ def flows():
     except Exception as e:
         return str(e), 500
     
+STATISTICS_MAP = {
+    "flow-stat": (monitor.get_flow_statistics, "Flow Statistics"),
+    "flow-table-stat": (monitor.get_flow_table_statistics, "Flow Table Statistics"),
+    "aggregate-flow-stat": (monitor.get_aggregate_flow_statistics, "Aggregate Flow Statistics"),
+    "ports-stat": (monitor.get_ports_statistics, "Ports Statistics"),
+}
+
 @app.route("/statistics/<stat_type>")
 def statistics(stat_type):
     try:
-        topology_details = monitor.get_full_topology()
-        graph_data = prepare_graph_data(topology_details)
-
-        # Визначаємо, яку статистику повертати
-        if stat_type == "flow-stat":
-            stat_table = monitor.get_flow_statistics()
-            title = "Flow Statistics"
-        elif stat_type == "flow-table-stat":
-            stat_table = monitor.get_flow_table_statistics()
-            title = "Flow Table Statistics"
-        elif stat_type == "aggregate-flow-stat":
-            stat_table = monitor.get_aggregate_flow_statistics()
-            title = "Aggregate Flow Statistics"
-        elif stat_type == "ports-stat":
-            stat_table = monitor.get_ports_statistics()
-            title = "Ports Statistics"
-        else:
+        topology_details, graph_data = get_topology_and_graph(monitor)
+        stat_func, title = STATISTICS_MAP.get(stat_type, (None, None))
+        if stat_func is None:
             return "Unknown statistics type", 404
-
+        stat_table = stat_func()
         return render_template(
             "base_statistics.html",
             graph_data=json.dumps(graph_data),
@@ -99,20 +94,15 @@ def edit_flow(node_id, table_id, flow_id):
         except Exception as e:
             print(e)
             
-            flow_info = {
-                "id": request.form.get("id", ""),
-                "priority": request.form.get("priority", ""),
-                "table_id": request.form.get("table_id", ""),
-                "match_in_port": request.form.get("match_in_port", ""),
-                "match_eth_type": request.form.get("match_eth_type", ""),
-                "match_ipv4_src": request.form.get("match_ipv4_src", ""),
-                "match_ipv4_dst": request.form.get("match_ipv4_dst", ""),
-                "action_output": request.form.get("action_output", ""),
-                "action_drop": "action_drop" in request.form,
-                "action_set_ipv4_src": request.form.get("action_set_ipv4_src", "")
-            }
+            flow_info = extract_flow_info(request.form)
 
-            return render_template("edit_flow.html", flow_info=flow_info, json_info={})
+            topology_details, graph_data = get_topology_and_graph(monitor)
+            return render_template(
+                "edit_flow.html", 
+                topology_details=topology_details, 
+                graph_data=graph_data,
+                flow_info=flow_info, 
+                json_info={})
         
     else:
         flow_info = monitor.get_flow_info(node_id, table_id, flow_id)
@@ -121,7 +111,14 @@ def edit_flow(node_id, table_id, flow_id):
             flash('Flow not found', 'danger')
             print("Problem with flow")
             return redirect(url_for('flows'))
-        return render_template("edit_flow.html", flow_info=flow_info, json_info=json_flow_info)
+        
+        topology_details, graph_data = get_topology_and_graph(monitor)
+        return render_template(
+            "edit_flow.html", 
+            topology_details=topology_details, 
+            graph_data=graph_data,
+            flow_info=flow_info, 
+            json_info=json_flow_info)
 
 @app.route('/flows/create', methods=['GET', 'POST'])
 def create_flow():
@@ -137,24 +134,14 @@ def create_flow():
             return redirect(url_for('flows'))
         except Exception as e:
             print(e)
-            flow_info = {
-                "id": request.form.get("id", ""),
-                "priority": request.form.get("priority", ""),
-                "table_id": request.form.get("table_id", ""),
-                "match_in_port": request.form.get("match_in_port", ""),
-                "match_eth_type": request.form.get("match_eth_type", ""),
-                "match_ipv4_src": request.form.get("match_ipv4_src", ""),
-                "match_ipv4_dst": request.form.get("match_ipv4_dst", ""),
-                "action_output": request.form.get("action_output", ""),
-                "action_drop": "action_drop" in request.form,
-                "action_set_ipv4_src": request.form.get("action_set_ipv4_src", ""),
-                "node_id": request.form.get("node_id", "")
-            }
-
-            topology_details = monitor.get_full_topology()          
-            # Підготовка даних для графа
-            graph_data = prepare_graph_data(topology_details)
-            return render_template("edit_flow.html", topology_details=topology_details, flow_info=flow_info, json_info={})
+            flow_info = extract_flow_info(request.form)
+            topology_details, graph_data = get_topology_and_graph(monitor)
+            return render_template(
+                "edit_flow.html", 
+                topology_details=topology_details, 
+                graph_data=graph_data,
+                flow_info=flow_info, 
+                json_info={})
     else:
         # Порожні дані для нової форми
         flow_info = {
@@ -170,10 +157,28 @@ def create_flow():
             "action_set_ipv4_src": "",
             "node_id": ""
         }
-        topology_details = monitor.get_full_topology()          
-        # Підготовка даних для графа
-        graph_data = prepare_graph_data(topology_details)
-        return render_template("edit_flow.html", topology_details=topology_details, flow_info=flow_info, json_info={})
+        topology_details, graph_data = get_topology_and_graph(monitor)
+        return render_template(
+            "edit_flow.html", 
+            topology_details=topology_details, 
+            graph_data=graph_data,
+            flow_info=flow_info, 
+            json_info={})
+
+def extract_flow_info(form):
+    return {
+        "id": form.get("id", ""),
+        "priority": form.get("priority", ""),
+        "table_id": form.get("table_id", ""),
+        "match_in_port": form.get("match_in_port", ""),
+        "match_eth_type": form.get("match_eth_type", ""),
+        "match_ipv4_src": form.get("match_ipv4_src", ""),
+        "match_ipv4_dst": form.get("match_ipv4_dst", ""),
+        "action_output": form.get("action_output", ""),
+        "action_drop": "action_drop" in form,
+        "action_set_ipv4_src": form.get("action_set_ipv4_src", ""),
+        "node_id": form.get("node_id", "")
+    }
 
 if __name__ == "__main__":
     app.run(debug=True)
