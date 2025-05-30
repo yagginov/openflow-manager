@@ -108,7 +108,7 @@ def edit_flow(node_id, table_id, flow_id):
                 match["ipv4_destination"] = ipv4_dst
 
             # --- ACTIONS ---
-            actions = [] 
+            actions = []
 
             output_port = request.form.get("action_output")
             if output_port:
@@ -116,18 +116,23 @@ def edit_flow(node_id, table_id, flow_id):
                     "output-action": {
                         "output-node-connector": output_port,
                         "max-length": 65535
-                    }
+                    },
+                    "order": len(actions)
                 })
 
             if request.form.get("action_drop"):
-                actions.append({"drop-action": {}})
+                actions.append({
+                    "drop-action": {},
+                    "order": len(actions)
+                })
 
             set_ipv4_src = request.form.get("action_set_ipv4_src")
             if set_ipv4_src:
                 actions.append({
                     "set-field": {
                         "ipv4-source": set_ipv4_src
-                    }
+                    },
+                    "order": len(actions)
                 })
 
             flow_id = request.form.get("id")
