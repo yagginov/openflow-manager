@@ -259,9 +259,9 @@ input[type="checkbox"] {
     vertical-align: middle;
 }
 
-.btn, button[type="submit"] {
+.btn, .btn-primary, .btn-danger, .btn-accent, .create-flow-btn {
     background-color: $accent-color;
-    color: $text-color;
+    color: $text-color !important;
     border: none;
     border-radius: 6px;
     padding: 10px 22px;
@@ -269,73 +269,20 @@ input[type="checkbox"] {
     font-weight: 600;
     cursor: pointer;
     margin-top: 8px;
-    transition: background-color 0.2s, transform 0.15s;
-
-    &:hover {
-        background-color: $hover-color;
-        transform: scale(1.04);
-    }
-
-    &:active {
-        background-color: $active-color;
-        transform: scale(0.98);
-    }
-}
-
-form {
-    max-width: 520px;
-    margin: 0 auto;
-    background-color: $card-color;
-    padding: 28px 28px 18px 28px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-    border: 1.5px solid $border-color;
-}
-
-.flows-header {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin-bottom: 18px;
-    width: 100%;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.create-flow-btn {
-    background-color: $accent-color;
-    color: $text-color;
-    border: none;
-    border-radius: 6px;
-    padding: 10px 22px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.2s, transform 0.15s;
+    transition: background-color 0.2s, transform 0.15s, color 0.2s;
     box-shadow: 0 2px 8px rgba(0,0,0,0.18);
 
     &:hover {
         background-color: $hover-color;
+        color: $text-color !important;
         transform: scale(1.04);
     }
 
     &:active {
         background-color: $active-color;
+        color: $text-color !important;
         transform: scale(0.98);
     }
-}
-
-// --- Remove underline and visited color from links ---
-a, a:visited {
-    color: $accent-color;
-    text-decoration: none;
-    transition: color 0.2s;
-}
-
-a:hover, a:active {
-    color: $hover-color;
-    text-decoration: none;
 }
 
 // --- Style number input arrows ---

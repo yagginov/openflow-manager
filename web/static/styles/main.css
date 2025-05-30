@@ -238,9 +238,9 @@ input[type=checkbox] {
   vertical-align: middle;
 }
 
-.btn, button[type=submit] {
+.btn, .btn-primary, .btn-danger, .btn-accent, .create-flow-btn {
   background-color: #bb86fc;
-  color: #e0e0e0;
+  color: #e0e0e0 !important;
   border: none;
   border-radius: 6px;
   padding: 10px 22px;
@@ -248,68 +248,18 @@ input[type=checkbox] {
   font-weight: 600;
   cursor: pointer;
   margin-top: 8px;
-  transition: background-color 0.2s, transform 0.15s;
-}
-.btn:hover, button[type=submit]:hover {
-  background-color: #3700b3;
-  transform: scale(1.04);
-}
-.btn:active, button[type=submit]:active {
-  background-color: blue;
-  transform: scale(0.98);
-}
-
-form {
-  max-width: 520px;
-  margin: 0 auto;
-  background-color: #1e1e1e;
-  padding: 28px 28px 18px 28px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-  border: 1.5px solid #333;
-}
-
-.flows-header {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  margin-bottom: 18px;
-  width: 100%;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.create-flow-btn {
-  background-color: #bb86fc;
-  color: #e0e0e0;
-  border: none;
-  border-radius: 6px;
-  padding: 10px 22px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.2s, transform 0.15s;
+  transition: background-color 0.2s, transform 0.15s, color 0.2s;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
 }
-.create-flow-btn:hover {
+.btn:hover, .btn-primary:hover, .btn-danger:hover, .btn-accent:hover, .create-flow-btn:hover {
   background-color: #3700b3;
+  color: #e0e0e0 !important;
   transform: scale(1.04);
 }
-.create-flow-btn:active {
+.btn:active, .btn-primary:active, .btn-danger:active, .btn-accent:active, .create-flow-btn:active {
   background-color: blue;
+  color: #e0e0e0 !important;
   transform: scale(0.98);
-}
-
-a, a:visited {
-  color: #bb86fc;
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-a:hover, a:active {
-  color: #3700b3;
-  text-decoration: none;
 }
 
 input[type=number] {
