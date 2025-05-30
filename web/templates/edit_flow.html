@@ -22,6 +22,16 @@
             <input type="number" name="table_id" class="form-control" value="{{ flow_info.get('table_id', '') }}" required>
         </div>
 
+        <!-- Node selection -->
+        <div class="form-group">
+            <label>Node</label>
+            <select name="node_id" class="form-control" required>
+                {% for node in topology_details.nodes.node %}
+                    <option value="{{ node.id }}" {% if flow_info.get('node_id') == node.id %}selected{% endif %}>{{ node.id }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
         <h4>Match Fields</h4>
             <div class="form-group">
                 <label>in_port</label>
