@@ -108,7 +108,6 @@ def edit_flow(node_id, table_id, flow_id):
                 match["ipv4_destination"] = ipv4_dst
 
             # --- ACTIONS ---
-            actions = []
 
             output_port = request.form.get("action_output")
             if output_port:
@@ -130,19 +129,41 @@ def edit_flow(node_id, table_id, flow_id):
                     }
                 })
 
-            instructions = []
-            if actions:
-                instructions.append({
-                    "apply_actions": actions
+            flow_id = request.form.get("id")
+            priority = int(request.form.get("priority"))
+            table_id = int(request.form.get("table_id"))
+            in_port = request.form.get("match_in_port")
+
+            actions = []
+            if request.form.get("action_drop"):
+                actions.append({
+                    "order": 0,
+                    "drop-action": {}
                 })
 
-            # --- FLOW ENTRY ---
+            instructions = {
+                "instruction": [
+                    {
+                        "order": 0,
+                        "apply-actions": {
+                            "action": actions
+                        }
+                    }
+                ]
+            }
+
             flow_entry = {
-                "id": request.form.get("id"),
-                "priority": int(request.form.get("priority")),
-                "table_id": int(request.form.get("table_id")),
-                "match": match,
-                "instructions": instructions
+                "flow": [
+                    {
+                        "id": flow_id,
+                        "table_id": table_id,
+                        "priority": priority,
+                        "match": {
+                            "in-port": in_port
+                        },
+                        "instructions": instructions
+                    }
+                ]
             }
 
             print(flow_entry)
