@@ -8,6 +8,7 @@ $accent-color: #bb86fc;
 $hover-color: #3700b3;
 $active-color: blue;
 
+// --- Base layout ---
 html, body {
     height: 100%;
     margin: 0;
@@ -20,71 +21,70 @@ body {
     font-family: Arial, sans-serif;
     background-color: $bg-color;
     color: $text-color;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
 }
 
+// --- Header & Navigation ---
 header {
     background-color: $card-color;
     display: flex;
     align-items: center;
-    text-align: center;
-    padding: 0 20px;
     justify-content: space-between;
+    padding: 0 20px;
 
-    .home__link {
+    .home__link, .nav__link {
         font-size: 18px;
         color: $text-color;
         text-decoration: none;
-        display: block;
-        margin-left: 20px;
-        padding: 10px;
+        padding: 10px 5px;
         height: 40px;
         line-height: 40px;
-        margin: 10px 0;
+        margin: 10px 0 10px 20px;
         border: 1px solid white;
+        display: block;
+        border-radius: 0;
+        background: none;
+        transition: background-color 0.3s, color 0.2s;
     }
 
-    .home__link:hover {
+    .home__link:hover, .nav__link:hover {
         background-color: $hover-color;
     }
-
-    .home__link:active {
+    .home__link:active, .nav__link:active {
         background-color: $active-color;
+        color: $text-color;
     }
 
     .nav {
         .nav__list {
             list-style: none;
             display: flex;
+            gap: 20px;
             margin: 0;
             padding: 0;
-            gap: 20px;
-
-            .nav__link {
-                font-size: 18px;
-                color: $text-color;
-                text-decoration: none;
-                display: block;
-                margin-left: 20px;
-                padding: 10px 5px;
-                height: 40px;
-                line-height: 40px;
-                margin: 10px 0;
-            }
-
-            .nav__link:hover {
-                background-color: $hover-color;
-            }
-
-            .nav__link:active {
-                color: $active-color;
-            }
         }
     }
 }
 
+// --- Main content ---
+main {
+    text-align: center;
+    padding: 20px;
+    flex: 1;
+    box-sizing: border-box;
+}
+
+footer {
+    background-color: $card-color;
+    text-align: center;
+    padding: 10px;
+    color: $text-color;
+    margin-bottom: 0;
+}
+
+// --- Network graph wrapper ---
 .network-wrapper {
     display: flex;
     justify-content: center;
@@ -95,71 +95,22 @@ header {
         max-width: 1000px;
         height: 600px;
         border: 4px solid $border-color;
-        background-color: $card-color; 
+        background-color: $card-color;
         overflow: hidden;
         margin: 0 auto;
     }
 }
 
-main {
-    text-align: center;
-    padding: 20px;
-    box-sizing: border-box;
-    flex: 1;
-}
-
-footer {
-    background-color: $card-color;
-    text-align: center;
-    padding: 10px;
-    color: $text-color;
-    margin-bottom: 0px;
-}
-
-.content {
-    text-align: center;
-    padding: 20px;
-}
-
+// --- Typography ---
 h1, h2, h3 {
     color: $accent-color;
     text-align: center;
 }
-
 h1 { margin-bottom: 20px; }
 h2 { margin-bottom: 15px; }
 h3 { margin-bottom: 10px; }
 
-.navigation-buttons {
-    background-color: $card-color;
-    padding: 10px 0;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 12px;
-
-    button {
-        background-color: $accent-color;
-        color: $text-color;
-        border: none;
-        border-radius: 8px;
-        padding: 10px 20px;
-        font-size: 16px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: background-color 0.3s ease, transform 0.2s ease;
-
-        &:hover {
-            background-color: $hover-color;
-            transform: scale(1.05);
-        }
-
-        &:active {
-            transform: scale(0.98);
-        }
-    }
-}
-
+// --- Table styling ---
 table {
     width: 100%;
     max-width: 800px;
@@ -170,10 +121,7 @@ table {
     overflow: hidden;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
 
-    thead {
-        background-color: $hover-color;
-    }
-
+    thead { background-color: $hover-color; }
     th, td {
         padding: 10px;
         border: 1px solid $border-color;
@@ -181,26 +129,17 @@ table {
         white-space: nowrap;
         color: $text-color;
     }
-
-    th {
-        font-weight: bold;
-    }
-
-    tbody tr:nth-child(even) {
-        background-color: $bg-color;
-    }
-
-    tbody tr:nth-child(odd) {
-        background-color: $card-color;
-    }
-
+    th { font-weight: bold; }
+    tbody tr:nth-child(even) { background-color: $bg-color; }
+    tbody tr:nth-child(odd) { background-color: $card-color; }
     tbody tr:hover {
         background-color: $hover-color;
         color: $text-color;
-        transition: background-color 0.3s ease, color 0.3s ease;
+        transition: background-color 0.3s, color 0.3s;
     }
 }
 
+// --- Pre/code blocks ---
 pre {
     text-align: left;
     background-color: $card-color;
@@ -214,7 +153,7 @@ pre {
     font-family: "Courier New", Courier, monospace;
 }
 
-// --- Form Styling ---
+// --- Form elements ---
 .form-group {
     margin-bottom: 18px;
     display: flex;
@@ -259,7 +198,28 @@ input[type="checkbox"] {
     vertical-align: middle;
 }
 
-// --- Button styling (nav-like) ---
+// Number input arrows
+input[type="number"] {
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        appearance: none;
+        margin: 0;
+        background: $card-color;
+        width: 18px;
+        height: 18px;
+        border-radius: 3px;
+        border: 1px solid $border-color;
+        transition: border-color 0.2s;
+    }
+    -moz-appearance: textfield;
+    &:focus::-webkit-inner-spin-button,
+    &:focus::-webkit-outer-spin-button {
+        border-color: $accent-color;
+    }
+}
+
+// --- Buttons ---
 .btn, .btn-primary, .btn-danger, .btn-accent, .create-flow-btn {
     background-color: $accent-color;
     color: $text-color !important;
@@ -274,46 +234,20 @@ input[type="checkbox"] {
     box-shadow: 0 2px 8px rgba(0,0,0,0.18);
     text-decoration: none !important;
     display: inline-block;
-}
 
-.btn:hover, .btn-primary:hover, .btn-danger:hover, .btn-accent:hover, .create-flow-btn:hover {
-    background-color: $hover-color;
-    color: $text-color !important;
-    transform: scale(1.05);
-    text-decoration: none !important;
-}
-
-.btn:active, .btn-primary:active, .btn-danger:active, .btn-accent:active, .create-flow-btn:active {
-    background-color: $active-color;
-    color: $text-color !important;
-    transform: scale(0.98);
-    text-decoration: none !important;
-}
-
-// --- Style number input arrows ---
-input[type="number"] {
-    // Chrome, Safari, Edge
-    &::-webkit-inner-spin-button,
-    &::-webkit-outer-spin-button {
-        -webkit-appearance: none;
-        appearance: none;
-        margin: 0;
-        background: $card-color;
-        width: 18px;
-        height: 18px;
-        border-radius: 3px;
-        border: 1px solid $border-color;
-        transition: border-color 0.2s;
+    &:hover {
+        background-color: $hover-color;
+        color: $text-color !important;
+        transform: scale(1.05);
     }
-    // Firefox
-    -moz-appearance: textfield;
-
-    &:focus::-webkit-inner-spin-button,
-    &:focus::-webkit-outer-spin-button {
-        border-color: $accent-color;
+    &:active {
+        background-color: $active-color;
+        color: $text-color !important;
+        transform: scale(0.98);
     }
 }
 
+// --- Utility containers ---
 .container {
     margin: 32px auto;
     max-width: 540px;
@@ -325,4 +259,22 @@ input[type="number"] {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.navigation-buttons {
+    background-color: $card-color;
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    button {
+        @extend .btn;
+    }
+}
+
+.content {
+    text-align: center;
+    padding: 20px;
 }
