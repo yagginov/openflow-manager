@@ -173,7 +173,7 @@ def edit_flow(node_id, table_id, flow_id):
             return redirect(url_for('flows'))
 
         except Exception as e:
-            flash(f'Error updating flow: {e}', 'danger')
+            print(e)
             
             flow_info = {
                 "id": request.form.get("id", ""),
