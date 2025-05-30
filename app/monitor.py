@@ -8,10 +8,10 @@ import pandas as pd
 
 class OpenFlowMonitor:
     def __init__(self):
-        pass  # Конфігурація вже завантажується в opendaylight_client
+        pass  # Configuration is loaded in opendaylight_client
 
     def get_full_topology(self):
-        """Отримати повну інформацію про топологію мережі, включаючи зв'язки."""
+        """Get complete network topology information, including links."""
         try:
             topology_details = get_topology_details()
             topology_links = get_topology_links()
@@ -31,6 +31,7 @@ class OpenFlowMonitor:
         return nodes
 
     def get_flow_statistics(self):
+        """Return statistics for all flows in the network."""
         nodes = self.get_nodes()
         flow_statistics = []
 
@@ -60,6 +61,7 @@ class OpenFlowMonitor:
         return flow_statistics_df
     
     def get_flow_table_statistics(self):
+        """Return statistics for all flow tables in the network."""
         nodes = self.get_nodes()
         flow_table_statistics = []
 
@@ -82,6 +84,7 @@ class OpenFlowMonitor:
         return flow_table_statistics_df
 
     def get_aggregate_flow_statistics(self):
+        """Return aggregate statistics for all flow tables."""
         nodes = self.get_nodes()
         aggregate_flow_statistics = []
 
@@ -104,6 +107,7 @@ class OpenFlowMonitor:
         return aggregate_flow_statistics_df
 
     def get_ports_statistics(self):
+        """Return statistics for all ports in the network."""
         nodes = self.get_nodes()
         ports_statistics = []
 
@@ -153,6 +157,7 @@ class OpenFlowMonitor:
     
 
     def get_flows(self):
+        """Return all flows from the configuration datastore."""
         nodes = self.get_config_nodes()
         flows_data = []
         for node in nodes:
@@ -172,7 +177,7 @@ class OpenFlowMonitor:
         return flows_df
     
     def get_flow_info(self, node_id, table_id, flow_id):
-        """Повертає інформацію про конкретний flow у форматі, готовому для форми."""
+        """Return detailed information about a specific flow for form usage."""
         data = get_config_flow_info(node_id, table_id, flow_id)
         
         if not data or "flow-node-inventory:flow" not in data:
@@ -185,13 +190,13 @@ class OpenFlowMonitor:
             "priority": flow.get("priority", ""),
             "table_id": flow.get("table_id", ""),
 
-            # MATCH
+            # Match fields
             "match_in_port": flow.get("match", {}).get("in-port", ""),
             "match_eth_type": flow.get("match", {}).get("ethernet-match", {}).get("ethernet-type", {}).get("type", ""),
             "match_ipv4_src": flow.get("match", {}).get("ipv4-source", ""),
             "match_ipv4_dst": flow.get("match", {}).get("ipv4-destination", ""),
 
-            # ACTIONS
+            # Actions
             "action_output": "",
             "action_drop": False,
             "action_set_ipv4_src": ""
@@ -212,7 +217,6 @@ class OpenFlowMonitor:
 
         return flow_info
 
-
     def get_json_flow_info(self, node_id, table_id, flow_id):
-        """Повертає інформацію про конкретний flow у json форматі"""
+        """Return raw JSON information about a specific flow."""
         return get_config_flow_info(node_id, table_id, flow_id)

@@ -1,21 +1,12 @@
-import requests
 import json
 from app.opendaylight_client import create_flow as odl_create_flow, delete_flow as odl_delete_flow
 
-# Load configuration from config.json (як у monitor.py)
-with open("app/config.json", "r") as config_file:
-    config = json.load(config_file)
-
-BASE_URL = config["BASE_URL"]
-HEADERS = config["HEADERS"]
-
 class OpenFlowController:
     def __init__(self):
-        self.base_url = BASE_URL
-        self.headers = HEADERS
+        pass
 
     def build_flow_entry(self, form):
-        """Створює flow_entry з даних форми."""
+        """Builds a flow entry dict from form data for OpenFlow."""
         # --- MATCH ---
         match = {}
         in_port = form.get("match_in_port")
@@ -202,7 +193,9 @@ class OpenFlowController:
         return flow_entry
 
     def create_flow(self, node_id, table_id, flow_id, flow_data):
+        """Send flow entry to OpenDaylight."""
         return odl_create_flow(node_id, table_id, flow_id, flow_data)
 
     def delete_flow(self, node_id, table_id, flow_id):
+        """Delete flow entry from OpenDaylight."""
         return odl_delete_flow(node_id, table_id, flow_id)

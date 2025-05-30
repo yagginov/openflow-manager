@@ -9,7 +9,7 @@ BASE_URL = config["BASE_URL"]
 HEADERS = config["HEADERS"]
 
 def get_topology_details():
-    """Retrieve OpenFlow topology details."""
+    """Retrieve operational OpenFlow topology details."""
     url = f"{BASE_URL}/restconf/operational/opendaylight-inventory:nodes/"
     response = requests.get(url, headers=HEADERS)
     if response.status_code != 200:
@@ -17,24 +17,23 @@ def get_topology_details():
     return response.json()
 
 def get_config_topology_details():
-    """Retrieve OpenFlow topology details."""
+    """Retrieve configuration OpenFlow topology details."""
     url = f"{BASE_URL}/restconf/config/opendaylight-inventory:nodes/"
     response = requests.get(url, headers=HEADERS)
     if response.status_code != 200:
         raise Exception(f"HTTP Error {response.status_code}: {response.text}")
     return response.json()
 
-
 def get_config_flow_info(node_id, table_id, flow_id):
+    """Get flow configuration for a specific node, table, and flow."""
     url = f"{BASE_URL}/restconf/config/opendaylight-inventory:nodes/node/{node_id}/table/{table_id}/flow/{flow_id}/"
-    print(f"url for api: {url}")
     response = requests.get(url, headers=HEADERS)
     if response.status_code != 200:
         raise Exception(f"HTTP Error {response.status_code}: {response.text}")
     return response.json()
 
-
 def get_flow_ids(node_id, table_id):
+    """Get all flow IDs from a specific node and table."""
     url = f"{BASE_URL}/restconf/config/opendaylight-inventory:nodes/node/{node_id}/table/{table_id}"
     response = requests.get(url, headers=HEADERS)
     if response.status_code != 200:
@@ -59,8 +58,8 @@ def get_node_inventory(node_id):
 
 def create_flow(node_id, table_id, flow_id, flow_data):
     """
-    Створити новий flow на вказаному вузлі, таблиці та з flow_id.
-    flow_data — це словник з усіма параметрами flow (відповідає структурі OpenFlow).
+    Create a new flow on the specified node, table, and flow_id.
+    flow_data should be a dictionary matching the OpenFlow structure.
     """
     url = f"{BASE_URL}/restconf/config/opendaylight-inventory:nodes/node/{node_id}/table/{table_id}/flow/{flow_id}"
     response = requests.put(url, json=flow_data, headers=HEADERS)
@@ -74,7 +73,7 @@ def create_flow(node_id, table_id, flow_id, flow_data):
 
 def delete_flow(node_id, table_id, flow_id):
     """
-    Видалити flow з вказаного вузла, таблиці та flow_id.
+    Delete a flow from the specified node, table, and flow_id.
     """
     url = f"{BASE_URL}/restconf/config/opendaylight-inventory:nodes/node/{node_id}/table/{table_id}/flow/{flow_id}"
     response = requests.delete(url, headers=HEADERS)

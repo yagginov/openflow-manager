@@ -1,10 +1,8 @@
 from flask import Flask, render_template, request, jsonify, flash, redirect, url_for
 from app.monitor import OpenFlowMonitor
 from app.controller import OpenFlowController
-from app.graph_utils import prepare_graph_data
 import json
-import pandas as pd
-from app.utils import get_topology_and_graph, extract_flow_info, parse_actions_from_flow  # Додано
+from app.utils import get_topology_and_graph, extract_flow_info, parse_actions_from_flow
 
 app = Flask(__name__)
 app.secret_key = 'yagginov-secret-key'
@@ -14,17 +12,18 @@ controller = OpenFlowController()
 
 @app.route("/")
 def index():
+    # Main page with topology and graph visualization
     try:
-        topology_details, graph_data = get_topology_and_graph(monitor, prepare_graph_data)
+        topology_details, graph_data = get_topology_and_graph(monitor)
         return render_template("index.html", topology=topology_details, graph_data=json.dumps(graph_data))
     except Exception as e:
         return str(e), 500
 
 @app.route('/flows')
 def flows():
+    # Display all active flows
     try:
-        topology_details, graph_data = get_topology_and_graph(monitor, prepare_graph_data)
-
+        topology_details, graph_data = get_topology_and_graph(monitor)
         flows = monitor.get_flows()
         return render_template(
             "flows.html", 
@@ -32,10 +31,10 @@ def flows():
             title="Active Flows", 
             headers=flows.columns.tolist(), 
             data=flows.values.tolist()
-            )
+        )
     except Exception as e:
         return str(e), 500
-    
+
 STATISTICS_MAP = {
     "flow-stat": (monitor.get_flow_statistics, "Flow Statistics"),
     "flow-table-stat": (monitor.get_flow_table_statistics, "Flow Table Statistics"),
@@ -45,8 +44,9 @@ STATISTICS_MAP = {
 
 @app.route("/statistics/<stat_type>")
 def statistics(stat_type):
+    # Display statistics based on type
     try:
-        topology_details, graph_data = get_topology_and_graph(monitor, prepare_graph_data)
+        topology_details, graph_data = get_topology_and_graph(monitor)
         stat_func, title = STATISTICS_MAP.get(stat_type, (None, None))
         if stat_func is None:
             return "Unknown statistics type", 404
@@ -63,6 +63,7 @@ def statistics(stat_type):
 
 @app.route('/flows/delete/<node_id>/<table_id>/<flow_id>', methods=['POST'])
 def delete_flow(node_id, table_id, flow_id):
+    # Delete a flow entry
     try:
         controller.delete_flow(node_id, table_id, flow_id)
         flash('Flow deleted successfully', 'success')
@@ -70,55 +71,48 @@ def delete_flow(node_id, table_id, flow_id):
         flash(f'Error deleting flow: {e}', 'danger')
     return redirect(url_for('flows'))
 
-
 @app.route('/flows/edit/<node_id>/<table_id>/<flow_id>', methods=['GET', 'POST'])
 def edit_flow(node_id, table_id, flow_id):
+    # Edit an existing flow entry
     if request.method == 'POST':
         try:
-            print(f"node_id: {node_id}\ntable_id: {table_id}\nflow_id: {flow_id}")
-
             flow_entry = controller.build_flow_entry(request.form)
-            print(flow_entry)
-
             controller.create_flow(node_id, flow_entry["flow"][0]["table_id"], flow_entry["flow"][0]["id"], flow_entry)
             flash('Flow updated successfully', 'success')
             return redirect(url_for('flows'))
-
         except Exception as e:
-            print(e)
-            
             flow_info = extract_flow_info(request.form)
-
-            topology_details, graph_data = get_topology_and_graph(monitor, prepare_graph_data)
+            topology_details, graph_data = get_topology_and_graph(monitor)
             return render_template(
                 "edit_flow.html", 
                 topology_details=topology_details, 
                 graph_data=json.dumps(graph_data),
                 flow_info=flow_info, 
-                json_info={})
-        
+                json_info={}
+            )
     else:
         flow_info = monitor.get_flow_info(node_id, table_id, flow_id)
         json_flow_info = monitor.get_json_flow_info(node_id, table_id, flow_id)
         if flow_info is None:
             flash('Flow not found', 'danger')
-            print("Problem with flow")
             return redirect(url_for('flows'))
 
         if json_flow_info and "instructions" in json_flow_info:
             actions = parse_actions_from_flow(json_flow_info)
             flow_info.update(actions)
 
-        topology_details, graph_data = get_topology_and_graph(monitor, prepare_graph_data)
+        topology_details, graph_data = get_topology_and_graph(monitor)
         return render_template(
             "edit_flow.html", 
             topology_details=topology_details, 
             graph_data=json.dumps(graph_data),
             flow_info=flow_info, 
-            json_info=json_flow_info)
+            json_info=json_flow_info
+        )
 
 @app.route('/flows/create', methods=['GET', 'POST'])
 def create_flow():
+    # Create a new flow entry
     if request.method == 'POST':
         try:
             flow_entry = controller.build_flow_entry(request.form)
@@ -129,16 +123,17 @@ def create_flow():
             flash('Flow created successfully', 'success')
             return redirect(url_for('flows'))
         except Exception as e:
-            print(e)
             flow_info = extract_flow_info(request.form)
-            topology_details, graph_data = get_topology_and_graph(monitor, prepare_graph_data)
+            topology_details, graph_data = get_topology_and_graph(monitor)
             return render_template(
                 "edit_flow.html", 
                 topology_details=topology_details, 
                 graph_data=json.dumps(graph_data),
                 flow_info=flow_info, 
-                json_info={})
+                json_info={}
+            )
     else:
+        # Default empty flow info for creation form
         flow_info = {
             "id": "",
             "priority": "",
@@ -169,13 +164,14 @@ def create_flow():
             "action_set_queue": "",
             "node_id": ""
         }
-        topology_details, graph_data = get_topology_and_graph(monitor, prepare_graph_data)
+        topology_details, graph_data = get_topology_and_graph(monitor)
         return render_template(
             "edit_flow.html", 
             topology_details=topology_details, 
             graph_data=json.dumps(graph_data),
             flow_info=flow_info, 
-            json_info={})
+            json_info={}
+        )
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)

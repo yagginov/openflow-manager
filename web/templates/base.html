@@ -9,24 +9,13 @@
 <body>
     <header>
         <a href="/" class="home__link">OpenFlow Manager</a>
-
         <nav class="nav">
             <ul class="nav__list">
-                <li>
-                    <a href="/statistics/flow-stat" class="nav__link">Flow Statistics</a>
-                </li>
-                <li>
-                    <a href="/statistics/flow-table-stat" class="nav__link">Flow Table Statistics</a>
-                </li>
-                <li>
-                    <a href="/statistics/aggregate-flow-stat" class="nav__link">Aggregate Flow Statistics</a>
-                </li>
-                <li>
-                    <a href="/statistics/ports-stat" class="nav__link">Ports Statistics</a>
-                </li>
-                <li>
-                    <a href="/flows" class="nav__link">Network Management</a>
-                </li>
+                <li><a href="/statistics/flow-stat" class="nav__link">Flow Statistics</a></li>
+                <li><a href="/statistics/flow-table-stat" class="nav__link">Flow Table Statistics</a></li>
+                <li><a href="/statistics/aggregate-flow-stat" class="nav__link">Aggregate Flow Statistics</a></li>
+                <li><a href="/statistics/ports-stat" class="nav__link">Ports Statistics</a></li>
+                <li><a href="/flows" class="nav__link">Network Management</a></li>
             </ul>
         </nav>
     </header>
@@ -45,15 +34,15 @@
 </body>
 </html>
 
-<!-- Підключення бібліотеки vis.js -->
+<!-- vis.js library for network graph visualization -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis-network.min.css" rel="stylesheet">
 
 <script>
-    // Дані для графа
+    // Graph data for visualization
     const graphData = JSON.parse('{{ graph_data | safe }}');
 
-    // Налаштування графа
+    // Graph visualization options
     const options = {
         nodes: {
             shape: 'image',
@@ -89,28 +78,20 @@
                 shape: 'image',
                 image: '/static/images/switch.png',
                 size: 20,
-                font: {
-                    color: '#e0e0e0'
-                }
+                font: { color: '#e0e0e0' }
             },
             computer: {
                 shape: 'image',
                 image: '/static/images/computer.png',
                 size: 15,
-                font: {
-                    color: '#e0e0e0'
-                }
+                font: { color: '#e0e0e0' }
             }
         },
-        interaction: {
-            hover: true
-        },
-        physics: {
-            enabled: false
-        }
+        interaction: { hover: true },
+        physics: { enabled: false }
     };
 
-    // Ініціалізація графа
+    // Initialize network graph
     const container = document.getElementById('network');
     const network = new vis.Network(container, graphData, options);
 </script>
