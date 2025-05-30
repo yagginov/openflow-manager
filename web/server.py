@@ -111,7 +111,12 @@ def edit_flow(node_id, table_id, flow_id):
             flash('Flow not found', 'danger')
             print("Problem with flow")
             return redirect(url_for('flows'))
-        
+
+        # Додаємо розбір actions
+        if json_flow_info and "instructions" in json_flow_info:
+            actions = parse_actions_from_flow(json_flow_info)
+            flow_info.update(actions)
+
         topology_details, graph_data = get_topology_and_graph(monitor)
         return render_template(
             "edit_flow.html", 
@@ -213,6 +218,40 @@ def extract_flow_info(form):
         "action_set_queue": form.get("action_set_queue", ""),
         "node_id": form.get("node_id", "")
     }
+
+def parse_actions_from_flow(flow):
+    """Розбирає actions з flow-entry у прості поля для форми."""
+    actions = {}
+    try:
+        instructions = flow.get("instructions", {}).get("instruction", [])
+        if instructions:
+            actions_list = instructions[0].get("apply-actions", {}).get("action", [])
+            for act in actions_list:
+                if "output-action" in act:
+                    actions["action_output"] = act["output-action"].get("output-node-connector", "")
+                if "drop-action" in act:
+                    actions["action_drop"] = True
+                if "set-field" in act:
+                    sf = act["set-field"]
+                    if "ipv4-source" in sf:
+                        actions["action_set_ipv4_src"] = sf["ipv4-source"]
+                    if "ipv4-destination" in sf:
+                        actions["action_set_ipv4_dst"] = sf["ipv4-destination"]
+                    if "eth-source" in sf:
+                        actions["action_set_eth_src"] = sf["eth-source"]
+                    if "eth-destination" in sf:
+                        actions["action_set_eth_dst"] = sf["eth-destination"]
+                    if "vlan-match" in sf and "vlan-id" in sf["vlan-match"]:
+                        actions["action_set_vlan_id"] = sf["vlan-match"]["vlan-id"]["vlan-id"]
+                if "push-vlan-action" in act:
+                    actions["action_push_vlan"] = True
+                if "pop-vlan-action" in act:
+                    actions["action_pop_vlan"] = True
+                if "set-queue-action" in act:
+                    actions["action_set_queue"] = act["set-queue-action"].get("queue-id", "")
+    except Exception as e:
+        print("Error parsing actions:", e)
+    return actions
 
 if __name__ == "__main__":
     app.run(debug=True)

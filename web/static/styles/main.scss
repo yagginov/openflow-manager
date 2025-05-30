@@ -213,3 +213,115 @@ pre {
     color: $text-color;
     font-family: "Courier New", Courier, monospace;
 }
+
+// --- Form Styling ---
+.form-group {
+    margin-bottom: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    label {
+        color: $accent-color;
+        font-weight: 500;
+        margin-bottom: 6px;
+        font-size: 15px;
+    }
+}
+
+input[type="text"],
+input[type="number"],
+select,
+textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1.5px solid $border-color;
+    border-radius: 6px;
+    background-color: $card-color;
+    color: $text-color;
+    font-size: 16px;
+    margin-bottom: 2px;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+
+    &:focus {
+        border-color: $accent-color;
+        outline: none;
+        box-shadow: 0 0 0 2px rgba($accent-color, 0.2);
+    }
+}
+
+input[type="checkbox"] {
+    accent-color: $accent-color;
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+.btn, button[type="submit"] {
+    background-color: $accent-color;
+    color: $text-color;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 22px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background-color 0.2s, transform 0.15s;
+
+    &:hover {
+        background-color: $hover-color;
+        transform: scale(1.04);
+    }
+
+    &:active {
+        background-color: $active-color;
+        transform: scale(0.98);
+    }
+}
+
+form {
+    max-width: 520px;
+    margin: 0 auto;
+    background-color: $card-color;
+    padding: 28px 28px 18px 28px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    border: 1.5px solid $border-color;
+}
+
+.flows-header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 18px;
+    width: 100%;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.create-flow-btn {
+    background-color: $accent-color;
+    color: $text-color;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 22px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.15s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+
+    &:hover {
+        background-color: $hover-color;
+        transform: scale(1.04);
+    }
+
+    &:active {
+        background-color: $active-color;
+        transform: scale(0.98);
+    }
+}
