@@ -53,6 +53,56 @@
                 <input type="text" name="match_ipv4_dst" class="form-control"
                     value="{{ flow_info.get('match_ipv4_dst', '') }}">
             </div>
+            <div class="form-group">
+                <label>ipv6_src</label>
+                <input type="text" name="match_ipv6_src" class="form-control"
+                    value="{{ flow_info.get('match_ipv6_src', '') }}">
+            </div>
+            <div class="form-group">
+                <label>ipv6_dst</label>
+                <input type="text" name="match_ipv6_dst" class="form-control"
+                    value="{{ flow_info.get('match_ipv6_dst', '') }}">
+            </div>
+            <div class="form-group">
+                <label>tcp_src</label>
+                <input type="text" name="match_tcp_src" class="form-control"
+                    value="{{ flow_info.get('match_tcp_src', '') }}">
+            </div>
+            <div class="form-group">
+                <label>tcp_dst</label>
+                <input type="text" name="match_tcp_dst" class="form-control"
+                    value="{{ flow_info.get('match_tcp_dst', '') }}">
+            </div>
+            <div class="form-group">
+                <label>udp_src</label>
+                <input type="text" name="match_udp_src" class="form-control"
+                    value="{{ flow_info.get('match_udp_src', '') }}">
+            </div>
+            <div class="form-group">
+                <label>udp_dst</label>
+                <input type="text" name="match_udp_dst" class="form-control"
+                    value="{{ flow_info.get('match_udp_dst', '') }}">
+            </div>
+            <div class="form-group">
+                <label>eth_src</label>
+                <input type="text" name="match_eth_src" class="form-control"
+                    value="{{ flow_info.get('match_eth_src', '') }}">
+            </div>
+            <div class="form-group">
+                <label>eth_dst</label>
+                <input type="text" name="match_eth_dst" class="form-control"
+                    value="{{ flow_info.get('match_eth_dst', '') }}">
+            </div>
+            <div class="form-group">
+                <label>vlan_id</label>
+                <input type="text" name="match_vlan_id" class="form-control"
+                    value="{{ flow_info.get('match_vlan_id', '') }}">
+            </div>
+            <div class="form-group">
+                <label>ip_proto</label>
+                <input type="text" name="match_ip_proto" class="form-control"
+                    value="{{ flow_info.get('match_ip_proto', '') }}">
+            </div>
 
         <hr>
 
@@ -71,6 +121,41 @@
                 <label>Set Field (IPv4 Src)</label>
                 <input type="text" name="action_set_ipv4_src" class="form-control"
                     value="{{ flow_info.get('action_set_ipv4_src', '') }}">
+            </div>
+            <div class="form-group">
+                <label>Set Field (IPv4 Dst)</label>
+                <input type="text" name="action_set_ipv4_dst" class="form-control"
+                    value="{{ flow_info.get('action_set_ipv4_dst', '') }}">
+            </div>
+            <div class="form-group">
+                <label>Set Field (MAC Src)</label>
+                <input type="text" name="action_set_eth_src" class="form-control"
+                    value="{{ flow_info.get('action_set_eth_src', '') }}">
+            </div>
+            <div class="form-group">
+                <label>Set Field (MAC Dst)</label>
+                <input type="text" name="action_set_eth_dst" class="form-control"
+                    value="{{ flow_info.get('action_set_eth_dst', '') }}">
+            </div>
+            <div class="form-group">
+                <label>Set VLAN ID</label>
+                <input type="text" name="action_set_vlan_id" class="form-control"
+                    value="{{ flow_info.get('action_set_vlan_id', '') }}">
+            </div>
+            <div class="form-group">
+                <label>Push VLAN</label>
+                <input type="checkbox" name="action_push_vlan"
+                    {% if flow_info.get('action_push_vlan') %}checked{% endif %}>
+            </div>
+            <div class="form-group">
+                <label>Pop VLAN</label>
+                <input type="checkbox" name="action_pop_vlan"
+                    {% if flow_info.get('action_pop_vlan') %}checked{% endif %}>
+            </div>
+            <div class="form-group">
+                <label>Set Queue</label>
+                <input type="text" name="action_set_queue" class="form-control"
+                    value="{{ flow_info.get('action_set_queue', '') }}">
             </div>
 
         <hr>
