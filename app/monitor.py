@@ -174,38 +174,41 @@ class OpenFlowMonitor:
     def get_flow_info(self, node_id, table_id, flow_id):
         """Повертає інформацію про конкретний flow у форматі, готовому для форми."""
         data = get_config_flow_info(node_id, table_id, flow_id)
-        print(data)
+        
         if not data or "flow-node-inventory:flow" not in data:
             return None
 
-        flow = data["flow-node-inventory:flow"][0]  # припускаємо, що повертається список з одним елементом
+        flow = data["flow-node-inventory:flow"][0]
 
         flow_info = {
             "id": flow.get("id", ""),
             "priority": flow.get("priority", ""),
             "table_id": flow.get("table_id", ""),
-            "match_in_port": flow.get("match", {}).get("in_port", ""),
-            "match_eth_type": flow.get("match", {}).get("ethernet_match", {}).get("ethernet_type", {}).get("type", ""),
-            "match_ipv4_src": flow.get("match", {}).get("ipv4_source", ""),
-            "match_ipv4_dst": flow.get("match", {}).get("ipv4_destination", ""),
+
+            # MATCH
+            "match_in_port": flow.get("match", {}).get("in-port", ""),
+            "match_eth_type": flow.get("match", {}).get("ethernet-match", {}).get("ethernet-type", {}).get("type", ""),
+            "match_ipv4_src": flow.get("match", {}).get("ipv4-source", ""),
+            "match_ipv4_dst": flow.get("match", {}).get("ipv4-destination", ""),
+
+            # ACTIONS
             "action_output": "",
             "action_drop": False,
             "action_set_ipv4_src": ""
         }
 
-        # Парсимо instructions -> apply_actions
         instructions = flow.get("instructions", {}).get("instruction", [])
         for instruction in instructions:
-            apply_actions = instruction.get("apply_actions", {}).get("action", [])
+            apply_actions = instruction.get("apply-actions", {}).get("action", [])
             for action in apply_actions:
-                if "output_action" in action:
-                    flow_info["action_output"] = action["output_action"].get("output_node_connector", "")
-                elif "drop_action" in action:
+                if "output-action" in action:
+                    flow_info["action_output"] = action["output-action"].get("output-node-connector", "")
+                elif "drop-action" in action:
                     flow_info["action_drop"] = True
-                elif "set_field" in action:
-                    set_field = action["set_field"]
-                    if "ipv4_source" in set_field:
-                        flow_info["action_set_ipv4_src"] = set_field["ipv4_source"]
+                elif "set-field" in action:
+                    set_field = action["set-field"]
+                    if "ipv4-source" in set_field:
+                        flow_info["action_set_ipv4_src"] = set_field["ipv4-source"]
 
         return flow_info
 
