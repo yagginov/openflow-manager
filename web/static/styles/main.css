@@ -23,7 +23,6 @@ header {
   padding: 0 20px;
   justify-content: space-between;
 }
-
 header .home__link {
   font-size: 18px;
   color: #e0e0e0;
@@ -36,15 +35,12 @@ header .home__link {
   margin: 10px 0;
   border: 1px solid white;
 }
-
 header .home__link:hover {
   background-color: #3700b3;
 }
-
 header .home__link:active {
   background-color: blue;
 }
-
 header .nav .nav__list {
   list-style: none;
   display: flex;
@@ -52,7 +48,6 @@ header .nav .nav__list {
   padding: 0;
   gap: 20px;
 }
-
 header .nav .nav__list .nav__link {
   font-size: 18px;
   color: #e0e0e0;
@@ -64,11 +59,9 @@ header .nav .nav__list .nav__link {
   line-height: 40px;
   margin: 10px 0;
 }
-
 header .nav .nav__list .nav__link:hover {
   background-color: #3700b3;
 }
-
 header .nav .nav__list .nav__link:active {
   color: blue;
 }
@@ -78,7 +71,6 @@ header .nav .nav__list .nav__link:active {
   justify-content: center;
   padding: 20px 0;
 }
-
 .network-wrapper #network {
   width: 75%;
   max-width: 1000px;
@@ -134,7 +126,6 @@ h3 {
   flex-wrap: wrap;
   gap: 12px;
 }
-
 .navigation-buttons button {
   background-color: #bb86fc;
   color: #e0e0e0;
@@ -146,12 +137,10 @@ h3 {
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
-
 .navigation-buttons button:hover {
   background-color: #3700b3;
   transform: scale(1.05);
 }
-
 .navigation-buttons button:active {
   transform: scale(0.98);
 }
@@ -166,11 +155,9 @@ table {
   overflow: hidden;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
 }
-
 table thead {
   background-color: #3700b3;
 }
-
 table th, table td {
   padding: 10px;
   border: 1px solid #333;
@@ -178,19 +165,15 @@ table th, table td {
   white-space: nowrap;
   color: #e0e0e0;
 }
-
 table th {
   font-weight: bold;
 }
-
 table tbody tr:nth-child(even) {
   background-color: #121212;
 }
-
 table tbody tr:nth-child(odd) {
   background-color: #1e1e1e;
 }
-
 table tbody tr:hover {
   background-color: #3700b3;
   color: #e0e0e0;
@@ -216,7 +199,6 @@ pre {
   flex-direction: column;
   align-items: flex-start;
 }
-
 .form-group label {
   color: #bb86fc;
   font-weight: 500;
@@ -224,8 +206,8 @@ pre {
   font-size: 15px;
 }
 
-input[type="text"],
-input[type="number"],
+input[type=text],
+input[type=number],
 select,
 textarea {
   width: 100%;
@@ -239,9 +221,8 @@ textarea {
   box-sizing: border-box;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
-
-input[type="text"]:focus,
-input[type="number"]:focus,
+input[type=text]:focus,
+input[type=number]:focus,
 select:focus,
 textarea:focus {
   border-color: #bb86fc;
@@ -249,7 +230,7 @@ textarea:focus {
   box-shadow: 0 0 0 2px rgba(187, 134, 252, 0.2);
 }
 
-input[type="checkbox"] {
+input[type=checkbox] {
   accent-color: #bb86fc;
   width: 18px;
   height: 18px;
@@ -257,7 +238,7 @@ input[type="checkbox"] {
   vertical-align: middle;
 }
 
-.btn, button[type="submit"] {
+.btn, button[type=submit] {
   background-color: #bb86fc;
   color: #e0e0e0;
   border: none;
@@ -269,13 +250,11 @@ input[type="checkbox"] {
   margin-top: 8px;
   transition: background-color 0.2s, transform 0.15s;
 }
-
-.btn:hover, button[type="submit"]:hover {
+.btn:hover, button[type=submit]:hover {
   background-color: #3700b3;
   transform: scale(1.04);
 }
-
-.btn:active, button[type="submit"]:active {
+.btn:active, button[type=submit]:active {
   background-color: blue;
   transform: scale(0.98);
 }
@@ -313,13 +292,40 @@ form {
   transition: background-color 0.2s, transform 0.15s;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
 }
-
 .create-flow-btn:hover {
   background-color: #3700b3;
   transform: scale(1.04);
 }
-
 .create-flow-btn:active {
   background-color: blue;
   transform: scale(0.98);
 }
+
+a, a:visited {
+  color: #bb86fc;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:hover, a:active {
+  color: #3700b3;
+  text-decoration: none;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+  background: #1e1e1e;
+  width: 18px;
+  height: 18px;
+  border-radius: 3px;
+  border: 1px solid #333;
+  transition: border-color 0.2s;
+}
+input[type=number]:focus::-webkit-inner-spin-button, input[type=number]:focus::-webkit-outer-spin-button {
+  border-color: #bb86fc;
+}/*# sourceMappingURL=main.css.map */

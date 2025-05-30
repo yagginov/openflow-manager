@@ -325,3 +325,39 @@ form {
         transform: scale(0.98);
     }
 }
+
+// --- Remove underline and visited color from links ---
+a, a:visited {
+    color: $accent-color;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+a:hover, a:active {
+    color: $hover-color;
+    text-decoration: none;
+}
+
+// --- Style number input arrows ---
+input[type="number"] {
+    // Chrome, Safari, Edge
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        appearance: none;
+        margin: 0;
+        background: $card-color;
+        width: 18px;
+        height: 18px;
+        border-radius: 3px;
+        border: 1px solid $border-color;
+        transition: border-color 0.2s;
+    }
+    // Firefox
+    -moz-appearance: textfield;
+
+    &:focus::-webkit-inner-spin-button,
+    &:focus::-webkit-outer-spin-button {
+        border-color: $accent-color;
+    }
+}
