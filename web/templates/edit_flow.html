@@ -23,65 +23,56 @@
         </div>
 
         <h4>Match Fields</h4>
-        <div class="form-group">
-            <label>in_port</label>
-            <input type="text" name="match_in_port" class="form-control"
-                   value="{{ flow_info.get('match', {}).get('in_port', '') }}">
-        </div>
-        <div class="form-group">
-            <label>eth_type</label>
-            <input type="text" name="match_eth_type" class="form-control"
-                   value="{{ flow_info.get('match', {}).get('ethernet_match', {}).get('ethernet_type', {}).get('type', '') }}">
-        </div>
-        <div class="form-group">
-            <label>ipv4_src</label>
-            <input type="text" name="match_ipv4_src" class="form-control"
-                   value="{{ flow_info.get('match', {}).get('ipv4_source', '') }}">
-        </div>
-        <div class="form-group">
-            <label>ipv4_dst</label>
-            <input type="text" name="match_ipv4_dst" class="form-control"
-                   value="{{ flow_info.get('match', {}).get('ipv4_destination', '') }}">
-        </div>
+            <div class="form-group">
+                <label>in_port</label>
+                <input type="text" name="match_in_port" class="form-control"
+                    value="{{ flow_info.get('match_in_port', '') }}">
+            </div>
+            <div class="form-group">
+                <label>eth_type</label>
+                <input type="text" name="match_eth_type" class="form-control"
+                    value="{{ flow_info.get('match_eth_type', '') }}">
+            </div>
+            <div class="form-group">
+                <label>ipv4_src</label>
+                <input type="text" name="match_ipv4_src" class="form-control"
+                    value="{{ flow_info.get('match_ipv4_src', '') }}">
+            </div>
+            <div class="form-group">
+                <label>ipv4_dst</label>
+                <input type="text" name="match_ipv4_dst" class="form-control"
+                    value="{{ flow_info.get('match_ipv4_dst', '') }}">
+            </div>
 
         <hr>
 
         <h4>Instructions / Actions</h4>
-        <div class="form-group">
-            <label>Output Port</label>
-            <input type="text" name="action_output" class="form-control"
-                   value="{% for inst in flow_info.get('instructions', []) %}
-                              {% for act in inst.get('apply_actions', []) %}
-                                  {% if act.get('output_action') %}
-                                      {{ act.get('output_action').get('output_node_connector', '') }}
-                                  {% endif %}
-                              {% endfor %}
-                          {% endfor %}">
-        </div>
-        <div class="form-group">
-            <label>Drop</label>
-            <input type="checkbox" name="action_drop"
-                   {% for inst in flow_info.get('instructions', []) %}
-                       {% for act in inst.get('apply_actions', []) %}
-                           {% if act.get('drop_action') %}checked{% endif %}
-                       {% endfor %}
-                   {% endfor %}>
-        </div>
-        <div class="form-group">
-            <label>Set Field (IPv4 Src)</label>
-            <input type="text" name="action_set_ipv4_src" class="form-control"
-                   value="{% for inst in flow_info.get('instructions', []) %}
-                              {% for act in inst.get('apply_actions', []) %}
-                                  {% if act.get('set_field') and act.set_field.get('ipv4_source') %}
-                                      {{ act.set_field.get('ipv4_source') }}
-                                  {% endif %}
-                              {% endfor %}
-                          {% endfor %}">
-        </div>
+            <div class="form-group">
+                <label>Output Port</label>
+                <input type="text" name="action_output" class="form-control"
+                    value="{{ flow_info.get('action_output', '') }}">
+            </div>
+            <div class="form-group">
+                <label>Drop</label>
+                <input type="checkbox" name="action_drop"
+                    {% if flow_info.get('action_drop') %}checked{% endif %}>
+            </div>
+            <div class="form-group">
+                <label>Set Field (IPv4 Src)</label>
+                <input type="text" name="action_set_ipv4_src" class="form-control"
+                    value="{{ flow_info.get('action_set_ipv4_src', '') }}">
+            </div>
 
         <hr>
 
         <button type="submit" class="btn btn-primary">Save</button>
     </form>
+
+        <hr>
+            <h4>Raw Flow Entry (JSON)</h4>
+            <pre style="background-color: #f5f5f5; padding: 1em; border-radius: 8px;">
+        {{ json_info | tojson(indent=4) }}
+            </pre>
+
 </div>
 {% endblock %}

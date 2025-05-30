@@ -155,11 +155,12 @@ def edit_flow(node_id, table_id, flow_id):
 
     else:
         flow_info = monitor.get_flow_info(node_id, table_id, flow_id)
+        json_flow_info = monitor.get_json_flow_info(node_id, table_id, flow_id)
         if flow_info is None:
             flash('Flow not found', 'danger')
             print("Problem with flow")
             return redirect(url_for('flows'))
-        return render_template("edit_flow.html", flow_info=flow_info)
+        return render_template("edit_flow.html", flow_info=flow_info, json_info=json_flow_info)
 
 
 if __name__ == "__main__":

@@ -208,3 +208,8 @@ class OpenFlowMonitor:
                         flow_info["action_set_ipv4_src"] = set_field["ipv4_source"]
 
         return flow_info
+
+
+    def get_json_flow_info(self, node_id, table_id, flow_id):
+        """Повертає інформацію про конкретний flow у json форматі"""
+        return get_config_flow_info()
