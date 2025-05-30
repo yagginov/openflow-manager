@@ -151,10 +151,22 @@ def edit_flow(node_id, table_id, flow_id):
 
         except Exception as e:
             flash(f'Error updating flow: {e}', 'danger')
-            # Створимо flow_info вручну для повторного заповнення форми
-            flow_info = request.form.to_dict()
-            return render_template("edit_flow.html", flow_info=flow_info)
+            
+            flow_info = {
+                "id": request.form.get("id", ""),
+                "priority": request.form.get("priority", ""),
+                "table_id": request.form.get("table_id", ""),
+                "match_in_port": request.form.get("match_in_port", ""),
+                "match_eth_type": request.form.get("match_eth_type", ""),
+                "match_ipv4_src": request.form.get("match_ipv4_src", ""),
+                "match_ipv4_dst": request.form.get("match_ipv4_dst", ""),
+                "action_output": request.form.get("action_output", ""),
+                "action_drop": "action_drop" in request.form,
+                "action_set_ipv4_src": request.form.get("action_set_ipv4_src", "")
+            }
 
+            return render_template("edit_flow.html", flow_info=flow_info, json_info={})
+        
     else:
         flow_info = monitor.get_flow_info(node_id, table_id, flow_id)
         json_flow_info = monitor.get_json_flow_info(node_id, table_id, flow_id)
