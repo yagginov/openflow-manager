@@ -113,20 +113,20 @@ def edit_flow(node_id, table_id, flow_id):
             output_port = request.form.get("action_output")
             if output_port:
                 actions.append({
-                    "output_action": {
-                        "output_node_connector": output_port,
-                        "max_length": 65535
+                    "output-action": {
+                        "output-node-connector": output_port,
+                        "max-length": 65535
                     }
                 })
 
             if request.form.get("action_drop"):
-                actions.append({"drop_action": {}})
+                actions.append({"drop-action": {}})
 
             set_ipv4_src = request.form.get("action_set_ipv4_src")
             if set_ipv4_src:
                 actions.append({
-                    "set_field": {
-                        "ipv4_source": set_ipv4_src
+                    "set-field": {
+                        "ipv4-source": set_ipv4_src
                     }
                 })
 
