@@ -242,24 +242,30 @@ input[type=checkbox] {
   background-color: #bb86fc;
   color: #e0e0e0 !important;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   padding: 10px 22px;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: bold;
   cursor: pointer;
   margin-top: 8px;
-  transition: background-color 0.2s, transform 0.15s, color 0.2s;
+  transition: background-color 0.3s, color 0.2s, transform 0.2s;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+  text-decoration: none !important;
+  display: inline-block;
 }
+
 .btn:hover, .btn-primary:hover, .btn-danger:hover, .btn-accent:hover, .create-flow-btn:hover {
   background-color: #3700b3;
   color: #e0e0e0 !important;
-  transform: scale(1.04);
+  transform: scale(1.05);
+  text-decoration: none !important;
 }
+
 .btn:active, .btn-primary:active, .btn-danger:active, .btn-accent:active, .create-flow-btn:active {
   background-color: blue;
   color: #e0e0e0 !important;
   transform: scale(0.98);
+  text-decoration: none !important;
 }
 
 input[type=number] {
