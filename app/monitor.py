@@ -175,10 +175,10 @@ class OpenFlowMonitor:
         """Повертає інформацію про конкретний flow у форматі, готовому для форми."""
         data = get_config_flow_info(node_id, table_id, flow_id)
         print(data)
-        if not data or "flow" not in data:
+        if not data or "flow-node-inventory:flow" not in data:
             return None
 
-        flow = data["flow"][0]  # припускаємо, що повертається список з одним елементом
+        flow = data["flow-node-inventory:flow"][0]  # припускаємо, що повертається список з одним елементом
 
         flow_info = {
             "id": flow.get("id", ""),
