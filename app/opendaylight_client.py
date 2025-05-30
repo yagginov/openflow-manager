@@ -27,6 +27,7 @@ def get_config_topology_details():
 
 def get_config_flow_info(node_id, table_id, flow_id):
     url = f"{BASE_URL}/restconf/config/opendaylight-inventory:nodes/node/{node_id}/table/{table_id}/flow/{flow_id}/"
+    print(f"url for api: {url}")
     response = requests.get(url, headers=HEADERS)
     if response.status_code != 200:
         raise Exception(f"HTTP Error {response.status_code}: {response.text}")

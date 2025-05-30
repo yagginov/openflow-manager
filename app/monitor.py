@@ -174,6 +174,7 @@ class OpenFlowMonitor:
     def get_flow_info(self, node_id, table_id, flow_id):
         """Повертає інформацію про конкретний flow у форматі, готовому для форми."""
         data = get_config_flow_info(node_id, table_id, flow_id)
+        print(data)
         if not data or "flow" not in data:
             return None
 
