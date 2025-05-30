@@ -83,6 +83,8 @@ def delete_flow(node_id, table_id, flow_id):
 def edit_flow(node_id, table_id, flow_id):
     if request.method == 'POST':
         try:
+            print(f"node_id: {node_id}\ntable_id: {table_id}\nflow_id: {flow_id}")
+
             # --- MATCH ---
             match = {}
             in_port = request.form.get("match_in_port")
