@@ -313,3 +313,17 @@ input[type="number"] {
         border-color: $accent-color;
     }
 }
+
+.container {
+    margin: 32px auto;
+    max-width: 540px;
+    width: 100%;
+    background-color: $card-color;
+    color: $text-color;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.45);
+    padding: 32px 28px 24px 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
