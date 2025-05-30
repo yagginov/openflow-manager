@@ -251,7 +251,7 @@ input[type=number]:focus::-webkit-inner-spin-button, input[type=number]:focus::-
   align-items: center;
 }
 
-container > * {
+.container > * {
   width: 100%;
   box-sizing: border-box;
 }
