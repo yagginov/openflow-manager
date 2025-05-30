@@ -49,6 +49,10 @@ header {
         transition: background-color 0.3s, color 0.2s;
     }
 
+    .nav_link {
+        border: 0;
+    }
+
     .home__link:hover, .nav__link:hover {
         background-color: $hover-color;
     }
@@ -250,7 +254,7 @@ input[type="number"] {
 // --- Utility containers ---
 .container {
     margin: 32px auto;
-    max-width: 540px;
+    max-width: 80%;
     background-color: $card-color;
     color: $text-color;
     border-radius: 12px;
