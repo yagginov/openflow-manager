@@ -152,8 +152,8 @@ def create_flow():
             }
 
             topology_details = monitor.get_full_topology()          
-                # Підготовка даних для графа
-                graph_data = prepare_graph_data(topology_details)
+            # Підготовка даних для графа
+            graph_data = prepare_graph_data(topology_details)
             return render_template("edit_flow.html", topology_details=topology_details, flow_info=flow_info, json_info={})
     else:
         # Порожні дані для нової форми
